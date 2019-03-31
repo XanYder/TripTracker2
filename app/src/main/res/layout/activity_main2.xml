@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".Main2Activity">
 
+    <Button
+        android:id="@+id/reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="240dp"
+        android:text="Reset"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch1" />
+
     <Switch
         android:id="@+id/switch1"
         android:layout_width="169dp"
@@ -38,11 +48,22 @@
         app:layout_constraintTop_toBottomOf="@+id/switch1" />
 
     <EditText
+        android:id="@+id/editMemory"
         android:layout_width="282dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginTop="92dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textFile"
+        android:layout_width="170dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="80dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/reset"
+        app:layout_constraintTop_toBottomOf="@+id/create" />
 
 </android.support.constraint.ConstraintLayout>

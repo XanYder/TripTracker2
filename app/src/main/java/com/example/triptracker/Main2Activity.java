@@ -1,27 +1,72 @@
 package com.example.triptracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Switch;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import org.w3c.dom.Text;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 
 public class Main2Activity extends AppCompatActivity {
 
     int checked = 0;
     int memories = 0;
-    EditText memoryInput;
 
-    List memNames = new ArrayList();
+
+
+    public String getTextFromFile(){
+        String text = "";
+        memories = 0;
+        try {
+            FileInputStream fis = openFileInput("test.txt");
+            InputStreamReader inputStreamReader = new InputStreamReader(fis);
+
+
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuffer stringBuffer = new StringBuffer();
+
+            String lines;
+            while ((lines = bufferedReader.readLine()) != null){
+                stringBuffer.append(lines+"\n");
+                memories += 1;
+            }
+
+            return String.valueOf(stringBuffer);
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public void setTextinFile(String text){
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput("test.txt", Context.MODE_APPEND);
+            outputStream.write(text.getBytes());
+            outputStream.close();
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +75,11 @@ public class Main2Activity extends AppCompatActivity {
         final Switch simpleSwitch = (Switch) findViewById(R.id.switch1);
         checked = getIntent().getIntExtra("checked", 0);
         memories = getIntent().getIntExtra("memoriesAmount", 0);
-        //memNames = getIntent().getStringArrayListExtra("memNames");
+
+        final TextView textfromFile = (TextView) findViewById(R.id.textFile);
 
 
+        textfromFile.setText(getTextFromFile());
 
         if (checked == 1){
             simpleSwitch.setChecked(true);
@@ -41,10 +88,6 @@ public class Main2Activity extends AppCompatActivity {
             simpleSwitch.setChecked(false);
         }
 
-
-
-
-
         Button backButton = (Button) findViewById(R.id.button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,9 +95,6 @@ public class Main2Activity extends AppCompatActivity {
                 Intent intent = new Intent(Main2Activity.this, MainActivity.class   );
                 intent.putExtra("checked", checked );
                 intent.putExtra("memoriesAmount", memories );
-                intent.putStringArrayListExtra("memNames", (ArrayList<String>) memNames);
-
-
                 startActivity(intent);
             }
         });
@@ -81,13 +121,26 @@ public class Main2Activity extends AppCompatActivity {
         });
 
 
-        Button memoryButton = (Button)findViewById(R.id.create);
+
+
+        final Button memoryButton = (Button)findViewById(R.id.create);
+        final EditText memoryInput = (EditText)findViewById(R.id.editMemory);
         memoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               String text = memoryInput.getText().toString();
+               setTextinFile(text+"\n");
                memories += 1;
-               memNames.add(memoryInput.getText());
-               Collections.reverse(memNames);
+               textfromFile.setText(getTextFromFile());
+            }
+        });
+
+        Button resetButton = (Button)findViewById(R.id.reset);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteFile("test.txt");
+                textfromFile.setText(getTextFromFile());
 
             }
         });
