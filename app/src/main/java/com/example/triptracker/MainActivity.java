@@ -61,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        checked = getIntent().getIntExtra("checked", 0);
-        memories = getIntent().getIntExtra("memoriesAmount", 0);
 
         TextView memory1 = (TextView)findViewById(R.id.memory1);
         TextView memory2 = (TextView)findViewById(R.id.memory2) ;
@@ -82,9 +80,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Main2Activity.class);
-                intent.putExtra("checked", checked );
-                intent.putExtra("memoriesAmount", memories );
-                ArrayList<String> memNames = getIntent().getStringArrayListExtra("memNames");
                 startActivity(intent);
             }
         });
