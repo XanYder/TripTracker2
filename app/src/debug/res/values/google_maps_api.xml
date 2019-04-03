@@ -1,7 +1,5 @@
 <resources>
     <!--
-    TODO: Before you run your application, you need a Google Maps API key.
-
     To get one, follow this link, follow the directions and press "Create" at the end:
 
     https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=0D:0C:2B:F2:76:D9:C0:A9:93:DA:67:99:EE:AF:A9:67:73:D4:AB:95%3Bcom.example.triptracker
