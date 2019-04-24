@@ -1,6 +1,16 @@
 package com.example.triptracker;
 
+import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
+import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 
 public class Main2Activity extends AppCompatActivity {
@@ -49,13 +59,37 @@ public class Main2Activity extends AppCompatActivity {
         }
     }
 
-
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        final Switch simpleSwitch = (Switch) findViewById(R.id.switch1);
+        TextView autoDate = findViewById(R.id.auto_date);
+        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        autoDate.setText(date);
+        final Switch dateSwitch = findViewById(R.id.date_switch);
+
+        dateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Switch dateSwitch = findViewById(R.id.date_switch);
+                TextView autoDate = findViewById(R.id.auto_date);
+                final TextInputLayout customDate = findViewById(R.id.custom_date_text);
+                if (dateSwitch.isChecked() == Boolean.TRUE) {
+                    customDate.setVisibility(View.INVISIBLE);
+                    autoDate.setVisibility(View.VISIBLE);
+
+
+                } else {
+                    customDate.setVisibility(View.VISIBLE);
+                    autoDate.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        /*
+
         checked = getIntent().getIntExtra("checked", 0);
         memories = getIntent().getIntExtra("memoriesAmount", 0);
 
@@ -64,12 +98,7 @@ public class Main2Activity extends AppCompatActivity {
 
         textfromFile.setText(getTextFromFile());
 
-        if (checked == 1){
-            simpleSwitch.setChecked(true);
-        }
-        else{
-            simpleSwitch.setChecked(false);
-        }
+
 
         Button backButton = (Button) findViewById(R.id.button);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -83,25 +112,13 @@ public class Main2Activity extends AppCompatActivity {
         });
 
 
-        simpleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Switch simpleSwitch = (Switch) findViewById(R.id.switch1);
-                if (simpleSwitch.isChecked() == Boolean.TRUE) {
-                    simpleSwitch.setText("Hi");
-                    checked = 1;
-                }
-                else {
-                    simpleSwitch.setText("Not Checked");
-                    checked = 0;
-                }
-            }
 
 
 
 
 
-        });
+
+
 
 
 
@@ -133,4 +150,5 @@ public class Main2Activity extends AppCompatActivity {
 
     }
     */
+    }
 }
