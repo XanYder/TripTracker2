@@ -1,27 +1,10 @@
 package com.example.triptracker;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.Switch;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 
 public class Main2Activity extends AppCompatActivity {
-
+    /*
     int checked = 0;
     int memories = 0;
 
@@ -149,4 +132,5 @@ public class Main2Activity extends AppCompatActivity {
 
 
     }
+    */
 }

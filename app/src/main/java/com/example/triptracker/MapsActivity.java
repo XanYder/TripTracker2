@@ -1,8 +1,13 @@
 package com.example.triptracker;
 
-import android.content.Context;
-import android.support.v4.app.FragmentActivity;
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -10,10 +15,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import android.support.v4.content.ContextCompat;
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.widget.Toast;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -29,6 +30,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        Button backButton = findViewById(R.id.create_memory);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapsActivity.this, Main2Activity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
     }
 
 
