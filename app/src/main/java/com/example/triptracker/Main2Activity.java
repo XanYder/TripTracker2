@@ -41,7 +41,7 @@ public class Main2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        TextView autoDate = findViewById(R.id.auto_date);
+        final TextView autoDate = findViewById(R.id.auto_date);
         String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         autoDate.setText(date);
 
@@ -51,7 +51,7 @@ public class Main2Activity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Switch dateSwitch = findViewById(R.id.date_switch);
                 TextView autoDate = findViewById(R.id.auto_date);
-                final TextInputLayout customDate = findViewById(R.id.custom_date_text);
+                final TextInputLayout customDate = findViewById(R.id.date_layout);
                 if (dateSwitch.isChecked() == Boolean.TRUE) {
                     customDate.setVisibility(View.INVISIBLE);
                     autoDate.setVisibility(View.VISIBLE);
@@ -72,6 +72,20 @@ public class Main2Activity extends AppCompatActivity {
                 TextInputEditText title = findViewById(R.id.title);
                 String text = title.getText().toString();
                 setTextinFile(text + "\n");
+
+                Switch dateSwitch = (Switch)findViewById(R.id.date_switch);
+                if (dateSwitch.isChecked()){
+                    String text2 = autoDate.getText().toString();
+                    setTextinFile(text2 + "\n");
+                }
+                else{
+                    TextInputEditText date = (TextInputEditText)findViewById(R.id.custom_date_text);
+                    String text2 = date.getText().toString();
+                    setTextinFile(text2 + "\n");
+                }
+
+
+
                 Intent intent = new Intent(Main2Activity.this, MainActivity.class);
                 startActivity(intent);
             }

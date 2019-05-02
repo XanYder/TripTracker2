@@ -31,9 +31,16 @@ public class MainActivity extends AppCompatActivity {
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
             String lines;
+            int count = 1;
             while ((lines = bufferedReader.readLine()) != null){
-                memNames.add(lines+"\n");
-                memories += 1;
+                if (count == 1) {
+                    memNames.add(lines + "\n");
+                    memories += 1;
+                    count += 1;
+                }
+                else{
+                    count = 1;
+                }
             }
             Collections.reverse(memNames);
             return String.valueOf(memNames.get(index));
