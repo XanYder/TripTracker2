@@ -1,6 +1,6 @@
 package com.example.triptracker;
 
-import android.content.Context;
+//import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -8,17 +8,30 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import android.support.v4.content.ContextCompat;
+//import android.support.v4.content.ContextCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.widget.Toast;
 
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private static final int REQUEST_ACCESS_FINE_LOCATION = 0;
+    private static final LatLng PERTH = new LatLng(-31.952854, 115.857342);
+    private static final LatLng SYDNEY = new LatLng(-33.87365, 151.20689);
+    private static final LatLng BRISBANE = new LatLng(-27.47093, 153.0235);
+    private static final LatLng MELBOURNE = new LatLng(-37.813, 144.962);
+
+
+    private Marker mPerth;
+    private Marker mSydney;
+    private Marker mBrisbane;
+    private Marker mMelbourne;
+
     private GoogleMap mMap;
 
     @Override
@@ -42,15 +55,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    public void onMapReady(GoogleMap map) {
+        mMap = map;
+        //Move the camera
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(SYDNEY));
+        // Add some markers to the map, and add a data object to each marker.
+        mPerth = mMap.addMarker(new MarkerOptions()
+                .position(PERTH)
+                .draggable(true)
+                .title("Perth")
+                .snippet("this one is draggable"));
+        mPerth.setTag(0);
+
+        mSydney = mMap.addMarker(new MarkerOptions()
+                .position(SYDNEY)
+                .draggable(false)
+                .title("Sydney"));
+        mSydney.setTag(0);
+
+        mBrisbane = mMap.addMarker(new MarkerOptions()
+                .position(BRISBANE)
+                .title("Brisbane")
+                .snippet("this one has alpha transparancy going on")
+                .alpha(0.7f));
+        mBrisbane.setTag(0);
+
+        mMelbourne = mMap.addMarker(new MarkerOptions()
+                .position(MELBOURNE)
+                .title("Melbourne")
+                .snippet("This one has a custom color")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        mMelbourne.setTag(0);
+
+        // Set a listener for marker click.
+        mMap.setOnMarkerClickListener(this);
         // Check whether this app could get location
         if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            /**
+            /*
              * Enables the My Location layer if the fine location permission has been granted.
              */
             mMap.setMyLocationEnabled(true);
@@ -81,4 +122,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+        // Retrieve the data from the marker.
+        Integer clickCount = (Integer) marker.getTag();
+
+        // Check if a click count was set, then display the click count.
+        if (clickCount != null) {
+            clickCount = clickCount + 1;
+            marker.setTag(clickCount);
+            Toast.makeText(this,
+                    marker.getTitle() +
+                            " has been clicked " + clickCount + " times.",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        // Return false to indicate that we have not consumed the event and that we wish
+        // for the default behavior to occur (which is for the camera to move such that the
+        // marker is centered and for the marker's info window to open, if it has one).
+        return false;
+    }
 }
