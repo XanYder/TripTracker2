@@ -1,6 +1,7 @@
 package com.example.triptracker;
 
 //import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -15,6 +16,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 //import android.support.v4.content.ContextCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 
@@ -56,6 +59,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap map) {
+        mapButton();
+        listButton();
+        homeButton();
         mMap = map;
         //Move the camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(SYDNEY));
@@ -141,5 +147,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // for the default behavior to occur (which is for the camera to move such that the
         // marker is centered and for the marker's info window to open, if it has one).
         return false;
+
+
+
+
+    }
+
+    private void mapButton() {
+        ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MapsActivity.this, MapsActivity.class));
+            }
+        });
+    }
+
+    private void listButton() {
+        ImageButton listButton = (ImageButton) findViewById(R.id.listButton);
+        listButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MapsActivity.this, Main2Activity.class));
+            }
+        });
+    }
+
+    private void homeButton() {
+        ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MapsActivity.this, MainActivity.class));
+            }
+        });
+
     }
 }
