@@ -116,10 +116,11 @@ public class MainActivity extends AppCompatActivity {
         listButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, Main2Activity.class));
+                startActivity(new Intent(MainActivity.this, MemoryListActivity.class));
             }
         });
     }
+    
 
     private void homeButton() {
         ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);
