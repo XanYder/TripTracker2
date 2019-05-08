@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -62,6 +63,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapButton();
         listButton();
         homeButton();
+        createMemory();
         mMap = map;
         //Move the camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(SYDNEY));
@@ -182,5 +184,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+    }
+
+    private void createMemory() {
+        Button listButton = (Button) findViewById(R.id.create_memory);
+        listButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MapsActivity.this, Main2Activity.class));
+            }
+        });
     }
 }
