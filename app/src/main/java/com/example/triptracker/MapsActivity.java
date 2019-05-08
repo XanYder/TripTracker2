@@ -170,7 +170,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         listButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MapsActivity.this, Main2Activity.class));
+                startActivity(new Intent(MapsActivity.this, MemoryListActivity.class));
             }
         });
     }

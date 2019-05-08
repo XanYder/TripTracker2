@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    
+
 
     private void homeButton() {
         ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);

@@ -125,7 +125,7 @@ public class Main2Activity extends AppCompatActivity {
         listButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Main2Activity.this, Main2Activity.class));
+                startActivity(new Intent(Main2Activity.this, MemoryListActivity.class));
             }
         });
     }
