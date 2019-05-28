@@ -150,13 +150,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // marker is centered and for the marker's info window to open, if it has one).
         return false;
 
-
-
-
     }
 
     private void mapButton() {
-        ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
+        ImageButton mapButton = findViewById(R.id.mapButton);
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,7 +163,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void listButton() {
-        ImageButton listButton = (ImageButton) findViewById(R.id.listButton);
+        ImageButton listButton = findViewById(R.id.listButton);
         listButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,7 +173,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void homeButton() {
-        ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);
+        ImageButton homeButton = findViewById(R.id.homeButton);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,7 +184,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void createMemory() {
-        Button listButton = (Button) findViewById(R.id.create_memory);
+        Button listButton = findViewById(R.id.create_memory);
         listButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
