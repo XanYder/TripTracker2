@@ -17,10 +17,10 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="69dp"
         android:layout_alignBottom="@+id/recyclerView"
-        android:layout_marginBottom="-1dp"
-        android:background="?attr/colorPrimary"
+        android:layout_marginBottom="-5dp"
+        android:background="@android:color/white"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
@@ -30,11 +30,38 @@
         android:layout_height="60dp"
         android:layout_alignEnd="@+id/toolbar2"
         android:layout_alignBottom="@+id/recyclerView"
-        android:layout_marginEnd="152dp"
-        android:layout_marginBottom="-3dp"
-        android:background="?attr/colorPrimary"
+        android:layout_marginEnd="161dp"
+        android:layout_marginBottom="0dp"
+        android:background="@android:color/white"
         android:scaleType="fitCenter"
+        android:tint="@android:color/holo_green_dark"
         app:srcCompat="@drawable/home_icon" />
+
+    <ImageButton
+        android:id="@+id/listButton"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_alignEnd="@+id/toolbar2"
+        android:layout_alignBottom="@+id/recyclerView"
+        android:layout_marginEnd="290dp"
+        android:layout_marginBottom="0dp"
+        android:background="@android:color/white"
+        android:scaleType="fitCenter"
+        android:tint="@android:color/holo_green_dark"
+        app:srcCompat="@drawable/list_icon" />
+
+    <ImageButton
+        android:id="@+id/mapButton"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_alignEnd="@+id/toolbar2"
+        android:layout_alignBottom="@+id/recyclerView"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="0dp"
+        android:background="@android:color/white"
+        android:scaleType="fitCenter"
+        android:tint="@android:color/holo_green_dark"
+        app:srcCompat="@drawable/map_icon" />
 
 
 </RelativeLayout>

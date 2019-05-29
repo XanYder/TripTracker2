@@ -59,6 +59,8 @@ public class MemoryListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memorylist);
         homeButton();
+        listButton();
+        mapButton();
 
 
 
@@ -91,5 +93,25 @@ public class MemoryListActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void mapButton() {
+        ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MemoryListActivity.this, MapsActivity.class));
+            }
+        });
+    }
+
+    private void listButton() {
+        ImageButton listButton = (ImageButton) findViewById(R.id.listButton);
+        listButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MemoryListActivity.this, MemoryListActivity.class));
+            }
+        });
     }
 }
