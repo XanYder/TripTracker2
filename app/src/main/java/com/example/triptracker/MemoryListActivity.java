@@ -1,9 +1,12 @@
 package com.example.triptracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageButton;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -55,6 +58,9 @@ public class MemoryListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memorylist);
+        homeButton();
+        listButton();
+        mapButton();
 
 
 
@@ -76,5 +82,36 @@ public class MemoryListActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void homeButton() {
+        ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+    }
+
+    private void mapButton() {
+        ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MemoryListActivity.this, MapsActivity.class));
+            }
+        });
+    }
+
+    private void listButton() {
+        ImageButton listButton = (ImageButton) findViewById(R.id.listButton);
+        listButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MemoryListActivity.this, MemoryListActivity.class));
+            }
+        });
     }
 }

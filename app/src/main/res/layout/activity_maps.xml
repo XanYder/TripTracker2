@@ -13,11 +13,11 @@
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="409dp"
+        android:layout_height="676dp"
+        app:layout_constraintBottom_toTopOf="@+id/homeButton"
         tools:context=".MapsActivity"
-        tools:layout_editor_absoluteX="44dp"
-        tools:layout_editor_absoluteY="171dp" />
+        tools:layout_editor_absoluteX="2dp" />
 
 
     <Button
@@ -55,8 +55,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="@+id/listButton"
-        app:srcCompat="@drawable/home_icon"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/home_icon" />
 
     <ImageButton
         android:id="@+id/listButton"
@@ -69,8 +68,7 @@
         app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toEndOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:srcCompat="@drawable/list_icon"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/list_icon" />
 
     <ImageButton
         android:id="@+id/mapButton"
@@ -83,8 +81,7 @@
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toEndOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="@+id/listButton"
-        app:srcCompat="@drawable/map_icon"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/map_icon" />
 
 
 </android.support.constraint.ConstraintLayout>
