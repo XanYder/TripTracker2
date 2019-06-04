@@ -82,8 +82,6 @@ public class MainActivity extends AppCompatActivity {
                     exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description));
                     count = 1;
                 }
-
-
             }
             return exampleList;
 
@@ -176,10 +174,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
+        homeButton();
         mapButton();
         listButton();
-        homeButton();
+
 
     }
 
