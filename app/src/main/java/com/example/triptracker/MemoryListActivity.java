@@ -1,10 +1,10 @@
 package com.example.triptracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -33,9 +33,11 @@ public class MemoryListActivity extends AppCompatActivity {
                 }
                 else if (count == 2) {
                     date = lines;
+                    count += 1;
+                } else if (count == 3) {
+                    String description = lines;
+                    exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description));
                     count = 1;
-                    exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date));
-
                 }
 
             }
@@ -77,7 +79,10 @@ public class MemoryListActivity extends AppCompatActivity {
             mAdapter.setOnItemClickListener(new ExampleAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(int position) {
-                    Toast.makeText(MemoryListActivity.this, String.valueOf(exampleList.get(position).testGet()), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MemoryListActivity.this, MemoryActivity.class);
+                    intent.putExtra("title", String.valueOf(exampleList.get(position).testGet()));
+                    intent.putExtra("description", String.valueOf(exampleList.get(position).getDescription()));
+                    startActivity(intent);
                 }
             });
         }
