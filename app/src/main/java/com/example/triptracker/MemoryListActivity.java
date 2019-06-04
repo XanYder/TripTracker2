@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -48,20 +49,21 @@ public class MemoryListActivity extends AppCompatActivity {
     }
 
     private RecyclerView mRecycleView;
-    private RecyclerView.Adapter mAdapter;
+    private ExampleAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memorylist);
-
+        final ArrayList<ExampleItem> exampleList = createMemories();
 
 
 
 
         if (createMemories() != null){
-            ArrayList<ExampleItem> exampleList = createMemories();
+
             int listSize = exampleList.size();
 
 
@@ -71,7 +73,15 @@ public class MemoryListActivity extends AppCompatActivity {
 
             mRecycleView.setLayoutManager(mLayoutManager);
             mRecycleView.setAdapter(mAdapter);
+
+            mAdapter.setOnItemClickListener(new ExampleAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    Toast.makeText(MemoryListActivity.this, String.valueOf(exampleList.get(position).testGet()), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
+
 
 
 

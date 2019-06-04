@@ -1,5 +1,7 @@
 package com.example.triptracker;
 
+import android.widget.Toast;
+
 public class ExampleItem {
     private int mImageResource;
     private String mText1;
@@ -9,6 +11,11 @@ public class ExampleItem {
         mImageResource = imageResource;
         mText1 = text1;
         mText2 = text2;
+    }
+
+    public String testGet(){
+        return mText1;
+
     }
 
     public int getImageResource(){
