@@ -80,8 +80,8 @@ public class MemoryListActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(int position) {
                     Intent intent = new Intent(MemoryListActivity.this, MemoryActivity.class);
-                    intent.putExtra("title", String.valueOf(exampleList.get(position).testGet()));
-                    intent.putExtra("description", String.valueOf(exampleList.get(position).getDescription()));
+                    intent.putExtra("title", String.valueOf(exampleList.get(position).getText1()));
+                    intent.putExtra("description", String.valueOf(exampleList.get(position).getDiscription()));
                     startActivity(intent);
                 }
             });

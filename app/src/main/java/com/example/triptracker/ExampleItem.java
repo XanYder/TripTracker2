@@ -13,11 +13,7 @@ public class ExampleItem {
         mDescription = description;
     }
 
-    public String testGet(){
-        return mText1;
-    }
-
-    public String getDescription() {
+    public String getDiscription() {
         return mDescription;
     }
 
