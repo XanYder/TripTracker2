@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import java.io.BufferedReader;
@@ -16,7 +17,9 @@ import java.util.ArrayList;
 
 public class MemoryListActivity extends AppCompatActivity {
 
-    public ArrayList<ExampleItem> createMemories(){
+
+
+        public ArrayList<ExampleItem> createMemories(){
         ArrayList<ExampleItem> exampleList = new ArrayList<>();
         try {
             FileInputStream fis = openFileInput("memories.txt");
@@ -53,7 +56,8 @@ public class MemoryListActivity extends AppCompatActivity {
     private RecyclerView mRecycleView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
+    
+    Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +65,19 @@ public class MemoryListActivity extends AppCompatActivity {
         homeButton();
         listButton();
         mapButton();
+        button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(Intent.ACTION_SEND);
+                myIntent.setType("text/plain");
+                String shareBody = "Your body is here";
+                String shareSub = "Your subject";
+                myIntent.putExtra(Intent.EXTRA_SUBJECT, shareBody);
+                myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(myIntent, "Share using"));
+            }
+        });
 
 
 
