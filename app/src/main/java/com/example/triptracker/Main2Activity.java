@@ -2,21 +2,36 @@ package com.example.triptracker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -36,10 +51,27 @@ public class Main2Activity extends AppCompatActivity {
         }
     }
 
-
+    private FusedLocationProviderClient fusedLocationClient;
+    private EditText mSearchText;
+    private static final String TAG = "MyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mSearchText = findViewById(R.id.textInputLayout2);
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                // Got last known location. In some rare situations this can be null.
+                Toast.makeText(Main2Activity.this, location.toString(),
+                        Toast.LENGTH_LONG).show();
+                if (location != null) {
+                    Toast.makeText(Main2Activity.this, "location doesn't equal null",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         final TextView autoDate = findViewById(R.id.auto_date);
@@ -107,9 +139,42 @@ public class Main2Activity extends AppCompatActivity {
         mapButton();
         listButton();
         homeButton();
-
+        //init();
     }
 
+    private void init(){
+        Log.d(TAG, "init: initializing");
+        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_SEARCH
+                        || i == EditorInfo.IME_ACTION_DONE
+                        || keyEvent.getAction() == keyEvent.ACTION_DOWN
+                        || keyEvent.getAction() == keyEvent.KEYCODE_ENTER){
+                    geoLocate();
+                }
+                return false;
+            }
+        });
+    }
+    private void geoLocate(){
+        Log.d(TAG, "geoLocate: geolocating");
+        String searchString = mSearchText.getText().toString();
+
+        Geocoder geocoder = new Geocoder(Main2Activity.this);
+        List<Address> list = new ArrayList<>();
+        try{
+            list= geocoder.getFromLocationName(searchString, 1);
+        }catch (IOException e){
+            Log.e(TAG, "geoLocate: IOException: " + e.getMessage());
+        }
+        if (list.size() > 0) {
+            Address address = list.get(0);
+
+            Log.d(TAG, "geoLocate: found a location: " + address.toString());
+            //Toast.makeText(this, address.toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
     private void mapButton() {
         ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
         mapButton.setOnClickListener(new View.OnClickListener() {

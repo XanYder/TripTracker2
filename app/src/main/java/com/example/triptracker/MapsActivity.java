@@ -2,6 +2,7 @@ package com.example.triptracker;
 
 //import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -27,6 +28,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int REQUEST_ACCESS_FINE_LOCATION = 0;
     private static final LatLng PERTH = new LatLng(-31.952854, 115.857342);
     private static final LatLng SYDNEY = new LatLng(-33.87365, 151.20689);
+    //private static final Location SYDNEY = new Location("Sydney");
     private static final LatLng BRISBANE = new LatLng(-27.47093, 153.0235);
     private static final LatLng MELBOURNE = new LatLng(-37.813, 144.962);
 
@@ -66,7 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         createMemory();
         mMap = map;
         //Move the camera
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(SYDNEY));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(PERTH));
         // Add some markers to the map, and add a data object to each marker.
         mPerth = mMap.addMarker(new MarkerOptions()
                 .position(PERTH)
@@ -150,13 +152,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // marker is centered and for the marker's info window to open, if it has one).
         return false;
 
-
-
-
     }
 
     private void mapButton() {
-        ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
+        ImageButton mapButton = findViewById(R.id.mapButton);
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,7 +165,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void listButton() {
-        ImageButton listButton = (ImageButton) findViewById(R.id.listButton);
+        ImageButton listButton = findViewById(R.id.listButton);
         listButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,7 +175,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void homeButton() {
-        ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);
+        ImageButton homeButton = findViewById(R.id.homeButton);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,7 +186,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void createMemory() {
-        Button listButton = (Button) findViewById(R.id.create_memory);
+        Button listButton = findViewById(R.id.create_memory);
         listButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
