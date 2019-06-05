@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -42,9 +43,11 @@ public class MemoryListActivity extends AppCompatActivity {
                     count += 1;
                 } else if (count == 3) {
                     description = lines;
-                    exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location));
-                    count = 1;
+                    count += 1;
                 } else if (count == 4) {
+                    location = lines;
+                    Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
+
                     exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location));
                     count = 1;
                 }
@@ -108,7 +111,7 @@ public class MemoryListActivity extends AppCompatActivity {
     }
 
     private void homeButton() {
-        ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);
+        ImageButton homeButton = findViewById(R.id.homeButton);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,7 +122,7 @@ public class MemoryListActivity extends AppCompatActivity {
     }
 
     private void mapButton() {
-        ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
+        ImageButton mapButton = findViewById(R.id.mapButton);
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

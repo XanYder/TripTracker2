@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -120,6 +119,8 @@ public class Main2Activity extends AppCompatActivity {
                 EditText description = findViewById(R.id.description);
                 setTextinFile(description.getText().toString() + "\n");
 
+                TextInputEditText location = findViewById(R.id.location);
+                setTextinFile(location.getText().toString() + "\n");
 
 
                 Intent intent = new Intent(Main2Activity.this, MainActivity.class);
@@ -153,8 +154,8 @@ public class Main2Activity extends AppCompatActivity {
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 if (i == EditorInfo.IME_ACTION_SEARCH
                         || i == EditorInfo.IME_ACTION_DONE
-                        || keyEvent.getAction() == keyEvent.ACTION_DOWN
-                        || keyEvent.getAction() == keyEvent.KEYCODE_ENTER){
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
                     geoLocate();
                 }
                 return false;

@@ -3,10 +3,12 @@ package com.example.triptracker;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -35,14 +37,18 @@ public class MainActivity extends AppCompatActivity {
             String lines;
             int count = 1;
             while ((lines = bufferedReader.readLine()) != null){
+
                 if (count == 1) {
-                    memNames.add(lines + "\n");
+                    memNames.add(lines);
+                    Log.d("lines", String.valueOf(memories));
                     memories += 1;
                     count += 1;
                 } else if (count == 2) {
                     count += 1;
-                } else if (count > 2) {
+                } else if (count > 3) {
                     count = 1;
+                } else {
+                    count += 1;
                 }
             }
             Collections.reverse(memNames);
@@ -70,11 +76,13 @@ public class MainActivity extends AppCompatActivity {
             String date = "";
             String description = "";
             String location = "";
+
             while ((lines = bufferedReader.readLine()) != null) {
                 if (count == 1) {
                     itemName = lines;
                     count += 1;
                     amount += 1;
+
                 } else if (count == 2) {
                     date = lines;
                     count += 1;
@@ -82,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                     description = lines;
                     count += 1;
                 } else if (count == 4) {
+                    location = lines;
                     exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location));
                     count = 1;
                 }
@@ -108,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         TextView memory3 = findViewById(R.id.memory3);
 
         getTextFromFile(0);
-
+        Toast.makeText(this, String.valueOf(amount), Toast.LENGTH_SHORT).show();
 
         TextView[] memoryArray = {memory1,memory2,memory3};
 
@@ -118,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (amount > 0) {
             final int click1 = exampleList.size() - 1;
+            //Toast.makeText(this, String.valueOf(exampleList.size()), Toast.LENGTH_SHORT).show();
             ImageView one = findViewById(R.id.imageView3);
             one.setOnClickListener(new View.OnClickListener() {
                 @Override

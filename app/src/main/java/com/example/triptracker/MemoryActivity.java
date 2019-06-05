@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MemoryActivity extends AppCompatActivity {
 
@@ -20,10 +21,12 @@ public class MemoryActivity extends AppCompatActivity {
         TextView description = findViewById(R.id.description);
         description.setText(getIntent().getStringExtra("description"));
 
-        TextView location = findViewById(R.id.textView3);
+        TextView location = findViewById(R.id.location);
         location.setText(getIntent().getStringExtra("location"));
+        Toast.makeText(this, String.valueOf(getIntent().getStringExtra("location")), Toast.LENGTH_SHORT).show();
 
-        ImageView button = (ImageView) findViewById(R.id.cameraButton);
+
+        ImageView button = findViewById(R.id.cameraButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
