@@ -171,21 +171,21 @@
         app:layout_constraintEnd_toStartOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/listButton"
+        app:layout_constraintTop_toTopOf="@+id/createButton"
         app:srcCompat="@drawable/home_icon" />
 
     <ImageButton
-        android:id="@+id/listButton"
+        android:id="@+id/createButton"
         android:layout_width="70dp"
         android:layout_height="50dp"
         android:background="@android:color/white"
         android:scaleType="fitCenter"
-        android:tint="#686767"
+        android:tint="@android:color/holo_green_light"
         app:layout_constraintEnd_toStartOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toEndOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:srcCompat="@drawable/list_icon" />
+        app:srcCompat="@drawable/create_icon" />
 
     <ImageButton
         android:id="@+id/mapButton"
@@ -197,7 +197,7 @@
         app:layout_constraintEnd_toStartOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toEndOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/listButton"
+        app:layout_constraintTop_toTopOf="@+id/createButton"
         app:srcCompat="@drawable/map_icon" />
 
     <TextView
@@ -220,14 +220,15 @@
         android:layout_width="48dp"
         android:layout_height="16dp"
         android:layout_marginTop="44dp"
+        android:layout_marginEnd="8dp"
         android:background="@android:color/white"
         android:backgroundTint="@android:color/white"
         android:ems="10"
-        android:text="List"
-        android:textColor="#686767"
-        app:layout_constraintEnd_toEndOf="@+id/listButton"
-        app:layout_constraintTop_toTopOf="@+id/listButton"
-        tools:text="List" />
+        android:text="Create"
+        android:textColor="@android:color/holo_green_light"
+        app:layout_constraintEnd_toEndOf="@+id/createButton"
+        app:layout_constraintTop_toTopOf="@+id/createButton"
+        tools:text="Create" />
 
     <TextView
         android:id="@+id/mapButtonText"

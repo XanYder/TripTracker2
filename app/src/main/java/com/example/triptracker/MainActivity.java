@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         mapButton();
-        listButton();
+        createButton();
 
 
     }
@@ -188,12 +188,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void listButton() {
-        ImageButton listButton = findViewById(R.id.listButton);
-        listButton.setOnClickListener(new View.OnClickListener() {
+    private void createButton() {
+        ImageButton createButton = findViewById(R.id.createButton);
+        createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, MemoryListActivity.class));
+                startActivity(new Intent(MainActivity.this, Main2Activity.class));
             }
         });
     }

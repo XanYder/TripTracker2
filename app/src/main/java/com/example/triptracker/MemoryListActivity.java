@@ -67,6 +67,7 @@ public class MemoryListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_memorylist);
         homeButton();
         mapButton();
+        createButton();
 
         final ArrayList<ExampleItem> exampleList = createMemories();
 
@@ -119,6 +120,16 @@ public class MemoryListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MemoryListActivity.this, MapsActivity.class));
+            }
+        });
+    }
+
+    private void createButton() {
+        ImageButton createButton = findViewById(R.id.createButton);
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MemoryListActivity.this, Main2Activity.class));
             }
         });
     }
