@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -100,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final ArrayList<ExampleItem> exampleList = createMemoryList();
-        Toast.makeText(MainActivity.this, String.valueOf(amount), Toast.LENGTH_SHORT).show();
         TextView memory1 = findViewById(R.id.memory1);
         TextView memory2 = findViewById(R.id.memory2);
         TextView memory3 = findViewById(R.id.memory3);
@@ -174,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        homeButton();
         mapButton();
         listButton();
 
