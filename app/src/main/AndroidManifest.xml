@@ -46,7 +46,8 @@
         <activity android:name=".MemoryActivity" />
         <activity
             android:name=".CameraActivity"
-            android:label="Camera"/>
+            android:label="Camera"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".MapsActivity"
