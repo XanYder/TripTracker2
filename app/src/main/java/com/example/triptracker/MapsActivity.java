@@ -31,12 +31,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //private static final Location SYDNEY = new Location("Sydney");
     private static final LatLng BRISBANE = new LatLng(-27.47093, 153.0235);
     private static final LatLng MELBOURNE = new LatLng(-37.813, 144.962);
+    private static final LatLng HRO = new LatLng(51.91732977623568,4.4843445754744655);
 
 
     private Marker mPerth;
     private Marker mSydney;
     private Marker mBrisbane;
     private Marker mMelbourne;
+    private Marker mHRO;
 
     private GoogleMap mMap;
 
@@ -68,7 +70,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         createMemory();
         mMap = map;
         //Move the camera
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(PERTH));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(HRO));
         // Add some markers to the map, and add a data object to each marker.
         mPerth = mMap.addMarker(new MarkerOptions()
                 .position(PERTH)
@@ -96,6 +98,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .snippet("This one has a custom color")
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         mMelbourne.setTag(0);
+
+        /*mHRO = mMap.addMarker(new MarkerOptions()
+                .position(HRO)
+                .draggable(false)
+                .title("Rotterdam University of Applied Sciences")
+                .snippet("This is our school"));
+        mHRO.setTag(0);*/
 
         // Set a listener for marker click.
         mMap.setOnMarkerClickListener(this);
@@ -138,14 +147,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Integer clickCount = (Integer) marker.getTag();
 
         // Check if a click count was set, then display the click count.
-        if (clickCount != null) {
+        /*if (clickCount != null) {
             clickCount = clickCount + 1;
             marker.setTag(clickCount);
             Toast.makeText(this,
                     marker.getTitle() +
                             " has been clicked " + clickCount + " times.",
                     Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
         // Return false to indicate that we have not consumed the event and that we wish
         // for the default behavior to occur (which is for the camera to move such that the
