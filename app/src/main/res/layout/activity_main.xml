@@ -185,7 +185,7 @@
         android:layout_height="60dp"
         android:background="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="-2dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/homeButton"

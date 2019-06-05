@@ -135,11 +135,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="136dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="8dp"
         android:text="Create Memory"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.328"
+        app:layout_constraintHorizontal_bias="0.335"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_switch" />
 
@@ -147,8 +147,8 @@
         android:id="@+id/cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="44dp"
         android:text="Cancel"
         app:layout_constraintEnd_toStartOf="@+id/createMemory"
         app:layout_constraintTop_toBottomOf="@+id/date_switch" />
@@ -158,15 +158,16 @@
         android:layout_width="415dp"
         android:layout_height="60dp"
         android:background="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/homeButton"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
         android:background="@android:color/white"
         android:scaleType="fitCenter"
-        android:tint="@android:color/holo_green_dark"
+        android:tint="#686767"
         app:layout_constraintEnd_toStartOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/toolbar"
@@ -175,11 +176,11 @@
 
     <ImageButton
         android:id="@+id/listButton"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
         android:background="@android:color/white"
         android:scaleType="fitCenter"
-        android:tint="@android:color/holo_green_dark"
+        android:tint="#686767"
         app:layout_constraintEnd_toStartOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toEndOf="@+id/toolbar"
@@ -188,16 +189,59 @@
 
     <ImageButton
         android:id="@+id/mapButton"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
         android:background="@android:color/white"
         android:scaleType="fitCenter"
-        android:tint="@android:color/holo_green_dark"
+        android:tint="#686767"
         app:layout_constraintEnd_toStartOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toEndOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="@+id/listButton"
         app:srcCompat="@drawable/map_icon" />
+
+    <TextView
+        android:id="@+id/homeButtonText"
+        android:layout_width="45dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="8dp"
+        android:background="@android:color/white"
+        android:backgroundTint="@android:color/white"
+        android:ems="10"
+        android:text="Home"
+        android:textColor="#686767"
+        app:layout_constraintEnd_toEndOf="@+id/homeButton"
+        app:layout_constraintTop_toTopOf="@+id/homeButton"
+        tools:text="Home" />
+
+    <TextView
+        android:id="@+id/listButtonText"
+        android:layout_width="48dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="44dp"
+        android:background="@android:color/white"
+        android:backgroundTint="@android:color/white"
+        android:ems="10"
+        android:text="List"
+        android:textColor="#686767"
+        app:layout_constraintEnd_toEndOf="@+id/listButton"
+        app:layout_constraintTop_toTopOf="@+id/listButton"
+        tools:text="List" />
+
+    <TextView
+        android:id="@+id/mapButtonText"
+        android:layout_width="48dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="44dp"
+        android:background="@android:color/white"
+        android:backgroundTint="@android:color/white"
+        android:ems="10"
+        android:text="Map"
+        android:textColor="#686767"
+        app:layout_constraintEnd_toEndOf="@+id/mapButton"
+        app:layout_constraintTop_toTopOf="@+id/mapButton"
+        tools:text="List" />
 
 
 </android.support.constraint.ConstraintLayout>
