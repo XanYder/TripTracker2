@@ -60,7 +60,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap map) {
-        mapButton();
         listButton();
         homeButton();
         createMemory();
@@ -153,16 +152,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-    }
-
-    private void mapButton() {
-        ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
-        mapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MapsActivity.this, MapsActivity.class));
-            }
-        });
     }
 
     private void listButton() {

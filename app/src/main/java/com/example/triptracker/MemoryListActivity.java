@@ -57,16 +57,15 @@ public class MemoryListActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     
-    Button button;
+    Button shareButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memorylist);
         homeButton();
-        listButton();
         mapButton();
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+        shareButton = (Button) findViewById(R.id.shareButton);
+        shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(Intent.ACTION_SEND);
@@ -122,13 +121,4 @@ public class MemoryListActivity extends AppCompatActivity {
         });
     }
 
-    private void listButton() {
-        ImageButton listButton = (ImageButton) findViewById(R.id.listButton);
-        listButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MemoryListActivity.this, MemoryListActivity.class));
-            }
-        });
-    }
 }
