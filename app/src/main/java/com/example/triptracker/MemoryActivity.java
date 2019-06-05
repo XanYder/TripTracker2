@@ -20,6 +20,9 @@ public class MemoryActivity extends AppCompatActivity {
         TextView description = findViewById(R.id.description);
         description.setText(getIntent().getStringExtra("description"));
 
+        TextView location = findViewById(R.id.textView3);
+        location.setText(getIntent().getStringExtra("location"));
+
         ImageView button = (ImageView) findViewById(R.id.cameraButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

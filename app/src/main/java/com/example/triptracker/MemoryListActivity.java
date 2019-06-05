@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import java.io.BufferedReader;
@@ -31,6 +30,8 @@ public class MemoryListActivity extends AppCompatActivity {
             int count = 1;
             String itemName = "";
             String date = "";
+            String description = "";
+            String location = "";
             while ((lines = bufferedReader.readLine()) != null){
                 if (count == 1){
                     itemName = lines;
@@ -40,8 +41,11 @@ public class MemoryListActivity extends AppCompatActivity {
                     date = lines;
                     count += 1;
                 } else if (count == 3) {
-                    String description = lines;
-                    exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description));
+                    description = lines;
+                    exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location));
+                    count = 1;
+                } else if (count == 4) {
+                    exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location));
                     count = 1;
                 }
 
@@ -91,6 +95,7 @@ public class MemoryListActivity extends AppCompatActivity {
                     Intent intent = new Intent(MemoryListActivity.this, MemoryActivity.class);
                     intent.putExtra("title", String.valueOf(exampleList.get(position).getText1()));
                     intent.putExtra("description", String.valueOf(exampleList.get(position).getDiscription()));
+                    intent.putExtra("location", String.valueOf(exampleList.get(position).getLocation()));
                     startActivity(intent);
                 }
             });

@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
             int count = 1;
             String itemName = "";
             String date = "";
+            String description = "";
+            String location = "";
             while ((lines = bufferedReader.readLine()) != null) {
                 if (count == 1) {
                     itemName = lines;
@@ -77,8 +79,10 @@ public class MainActivity extends AppCompatActivity {
                     date = lines;
                     count += 1;
                 } else if (count == 3) {
-                    String description = lines;
-                    exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description));
+                    description = lines;
+                    count += 1;
+                } else if (count == 4) {
+                    exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location));
                     count = 1;
                 }
             }
@@ -121,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, MemoryActivity.class);
                     intent.putExtra("title", String.valueOf(exampleList.get(click1).getText1()));
                     intent.putExtra("description", String.valueOf(exampleList.get(click1).getDiscription()));
+                    intent.putExtra("location", String.valueOf(exampleList.get(click1).getLocation()));
                     startActivity(intent);
                 }
             });
@@ -133,6 +138,8 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, MemoryActivity.class);
                         intent.putExtra("title", String.valueOf(exampleList.get(click2).getText1()));
                         intent.putExtra("description", String.valueOf(exampleList.get(click2).getDiscription()));
+                        intent.putExtra("location", String.valueOf(exampleList.get(click2).getLocation()));
+
                         startActivity(intent);
                     }
                 });
@@ -145,6 +152,8 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this, MemoryActivity.class);
                             intent.putExtra("title", String.valueOf(exampleList.get(click3).getText1()));
                             intent.putExtra("description", String.valueOf(exampleList.get(click3).getDiscription()));
+                            intent.putExtra("location", String.valueOf(exampleList.get(click3).getLocation()));
+
                             startActivity(intent);
                         }
                     });
