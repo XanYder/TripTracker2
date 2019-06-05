@@ -1,7 +1,10 @@
 package com.example.triptracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MemoryActivity extends AppCompatActivity {
@@ -17,6 +20,19 @@ public class MemoryActivity extends AppCompatActivity {
         TextView description = findViewById(R.id.description);
         description.setText(getIntent().getStringExtra("description"));
 
+        ImageView button = (ImageView) findViewById(R.id.shareButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(Intent.ACTION_SEND);
+                myIntent.setType("text/plain");
+                String shareBody = getIntent().getStringExtra("descrpition");
+                String shareSub = getIntent().getStringExtra("title");
+                myIntent.putExtra(Intent.EXTRA_SUBJECT, shareBody);
+                myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(myIntent, "Share using"));
+            }
+        });
 
     }
 
