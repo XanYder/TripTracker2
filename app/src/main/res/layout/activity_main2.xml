@@ -47,7 +47,7 @@
         android:hint="Please Enter Description"
         android:inputType="textMultiLine"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/cameraButton" />
 
     <Switch
         android:id="@+id/date_switch"
@@ -94,11 +94,10 @@
         app:layout_constraintTop_toBottomOf="@+id/description"
         app:passwordToggleEnabled="false">
 
-        <EditText
+        <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Enter Address, City or Zip Code?"
-            android:imeOptions="actionSearch"/>
+            android:layout_height="wrap_content"
+            android:hint="Input Location?" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -136,11 +135,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="136dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="88dp"
         android:layout_marginEnd="8dp"
         android:text="Create Memory"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.335"
+        app:layout_constraintHorizontal_bias="0.328"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date_switch" />
 
@@ -148,8 +147,8 @@
         android:id="@+id/cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="48dp"
         android:text="Cancel"
         app:layout_constraintEnd_toStartOf="@+id/createMemory"
         app:layout_constraintTop_toBottomOf="@+id/date_switch" />
@@ -163,8 +162,8 @@
 
     <ImageButton
         android:id="@+id/homeButton"
-        android:layout_width="70dp"
-        android:layout_height="50dp"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
         android:background="@android:color/white"
         android:scaleType="fitCenter"
         android:tint="@android:color/holo_green_dark"
@@ -176,8 +175,8 @@
 
     <ImageButton
         android:id="@+id/listButton"
-        android:layout_width="70dp"
-        android:layout_height="50dp"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
         android:background="@android:color/white"
         android:scaleType="fitCenter"
         android:tint="@android:color/holo_green_dark"
@@ -189,8 +188,8 @@
 
     <ImageButton
         android:id="@+id/mapButton"
-        android:layout_width="70dp"
-        android:layout_height="50dp"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
         android:background="@android:color/white"
         android:scaleType="fitCenter"
         android:tint="@android:color/holo_green_dark"
@@ -199,51 +198,6 @@
         app:layout_constraintStart_toEndOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="@+id/listButton"
         app:srcCompat="@drawable/map_icon" />
-
-    <TextView
-        android:id="@+id/homeButtonText"
-        android:layout_width="45dp"
-        android:layout_height="17dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="8dp"
-        android:background="@android:color/white"
-        android:backgroundTint="@android:color/white"
-        android:ems="10"
-        android:text="Home"
-        android:textColor="@android:color/holo_green_light"
-        app:layout_constraintEnd_toEndOf="@+id/homeButton"
-        app:layout_constraintTop_toTopOf="@+id/homeButton"
-        tools:text="Home" />
-
-    <TextView
-        android:id="@+id/listButtonText"
-        android:layout_width="48dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="44dp"
-        android:background="@android:color/white"
-        android:backgroundTint="@android:color/white"
-        android:ems="10"
-        android:text="List"
-        android:textColor="@android:color/holo_green_light"
-        app:layout_constraintEnd_toEndOf="@+id/listButton"
-        app:layout_constraintTop_toTopOf="@+id/listButton"
-        tools:text="List" />
-
-    <TextView
-        android:id="@+id/mapButtonText"
-        android:layout_width="48dp"
-        android:layout_height="16dp"
-        android:layout_marginTop="44dp"
-        android:background="@android:color/white"
-        android:backgroundTint="@android:color/white"
-        android:ems="10"
-        android:text="Map"
-        android:textColor="@android:color/holo_green_light"
-        app:layout_constraintEnd_toEndOf="@+id/mapButton"
-        app:layout_constraintTop_toTopOf="@+id/mapButton"
-        tools:text="List" />
-
-
 
 
 </android.support.constraint.ConstraintLayout>
