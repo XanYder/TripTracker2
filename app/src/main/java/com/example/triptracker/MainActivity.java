@@ -201,15 +201,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-    private void homeButton() {
-        ImageButton homeButton = findViewById(R.id.homeButton);
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, MainActivity.class));
-            }
-        });
-
-    }
 }

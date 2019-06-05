@@ -12,41 +12,41 @@
         android:layout_width="match_parent"
         android:layout_height="699dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="38dp"
         android:padding="10dp"
         android:scrollbars="vertical" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
-        android:layout_height="69dp"
+        android:layout_height="66dp"
         android:layout_alignBottom="@+id/recyclerView"
-        android:layout_marginBottom="-5dp"
+        android:layout_marginBottom="-4dp"
         android:background="@android:color/white"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
     <ImageButton
         android:id="@+id/homeButton"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
         android:layout_alignEnd="@+id/toolbar2"
         android:layout_alignBottom="@+id/recyclerView"
-        android:layout_marginEnd="161dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="158dp"
+        android:layout_marginBottom="11dp"
         android:background="@android:color/white"
         android:scaleType="fitCenter"
-        android:tint="@android:color/holo_green_dark"
+        android:tint="#686767"
         app:srcCompat="@drawable/home_icon" />
 
     <ImageButton
         android:id="@+id/listButton"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
         android:layout_alignEnd="@+id/toolbar2"
         android:layout_alignBottom="@+id/recyclerView"
         android:layout_marginEnd="290dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginBottom="11dp"
         android:background="@android:color/white"
         android:scaleType="fitCenter"
         android:tint="@android:color/holo_green_dark"
@@ -54,16 +54,63 @@
 
     <ImageButton
         android:id="@+id/mapButton"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
         android:layout_alignEnd="@+id/toolbar2"
         android:layout_alignBottom="@+id/recyclerView"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="13dp"
         android:background="@android:color/white"
         android:scaleType="fitCenter"
-        android:tint="@android:color/holo_green_dark"
+        android:tint="#686767"
         app:srcCompat="@drawable/map_icon" />
+
+
+    <TextView
+        android:id="@+id/homeButtonText"
+        android:layout_width="45dp"
+        android:layout_height="17dp"
+        android:layout_alignEnd="@+id/toolbar2"
+        android:layout_alignBottom="@+id/recyclerView"
+        android:layout_marginEnd="166dp"
+        android:layout_marginBottom="-1dp"
+        android:background="@android:color/white"
+        android:backgroundTint="@android:color/white"
+        android:ems="10"
+        android:text="Home"
+        android:textColor="#686767" />
+
+    <TextView
+        android:id="@+id/listButtonText"
+        android:layout_width="45dp"
+        android:layout_height="17dp"
+        android:layout_alignEnd="@+id/toolbar2"
+        android:layout_alignBottom="@+id/recyclerView"
+        android:layout_marginEnd="293dp"
+        android:layout_marginBottom="-2dp"
+        android:background="@android:color/white"
+        android:backgroundTint="@android:color/white"
+        android:ems="10"
+        android:text="List"
+        android:textColor="@android:color/holo_green_light" />
+
+    <TextView
+        android:id="@+id/mapButtonText"
+        android:layout_width="45dp"
+        android:layout_height="17dp"
+        android:layout_alignEnd="@+id/toolbar2"
+        android:layout_alignBottom="@+id/recyclerView"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="0dp"
+        android:background="@android:color/white"
+        android:backgroundTint="@android:color/white"
+        android:ems="10"
+        android:text="Map"
+        android:textColor="#686767" />
+
+
+
+
 
 
 </RelativeLayout>
