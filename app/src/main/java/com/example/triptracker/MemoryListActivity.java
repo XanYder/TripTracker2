@@ -38,9 +38,11 @@ public class MemoryListActivity extends AppCompatActivity {
                 }
                 else if (count == 2) {
                     date = lines;
+                    count += 1;
+                } else if (count == 3) {
+                    String description = lines;
+                    exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description));
                     count = 1;
-                    exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date));
-
                 }
 
             }
@@ -54,10 +56,10 @@ public class MemoryListActivity extends AppCompatActivity {
     }
 
     private RecyclerView mRecycleView;
-    private RecyclerView.Adapter mAdapter;
+    private ExampleAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    
-    Button button;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,12 +81,13 @@ public class MemoryListActivity extends AppCompatActivity {
             }
         });
 
+        final ArrayList<ExampleItem> exampleList = createMemories();
 
 
 
 
         if (createMemories() != null){
-            ArrayList<ExampleItem> exampleList = createMemories();
+
             int listSize = exampleList.size();
 
 
@@ -94,7 +97,18 @@ public class MemoryListActivity extends AppCompatActivity {
 
             mRecycleView.setLayoutManager(mLayoutManager);
             mRecycleView.setAdapter(mAdapter);
+
+            mAdapter.setOnItemClickListener(new ExampleAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    Intent intent = new Intent(MemoryListActivity.this, MemoryActivity.class);
+                    intent.putExtra("title", String.valueOf(exampleList.get(position).getText1()));
+                    intent.putExtra("description", String.valueOf(exampleList.get(position).getDiscription()));
+                    startActivity(intent);
+                }
+            });
         }
+
 
 
 

@@ -106,16 +106,19 @@ public class Main2Activity extends AppCompatActivity {
                 String text = title.getText().toString();
                 setTextinFile(text + "\n");
 
-                Switch dateSwitch = (Switch)findViewById(R.id.date_switch);
+                Switch dateSwitch = findViewById(R.id.date_switch);
                 if (dateSwitch.isChecked()){
                     String text2 = autoDate.getText().toString();
                     setTextinFile(text2 + "\n");
                 }
                 else{
-                    TextInputEditText date = (TextInputEditText)findViewById(R.id.custom_date_text);
+                    TextInputEditText date = findViewById(R.id.custom_date_text);
                     String text2 = date.getText().toString();
                     setTextinFile(text2 + "\n");
                 }
+
+                EditText description = findViewById(R.id.description);
+                setTextinFile(description.getText().toString() + "\n");
 
 
 
@@ -176,7 +179,7 @@ public class Main2Activity extends AppCompatActivity {
         }
     }
     private void mapButton() {
-        ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
+        ImageButton mapButton = findViewById(R.id.mapButton);
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,7 +189,7 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     private void listButton() {
-        ImageButton listButton = (ImageButton) findViewById(R.id.listButton);
+        ImageButton listButton = findViewById(R.id.listButton);
         listButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,7 +199,7 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     private void homeButton() {
-        ImageButton homeButton = (ImageButton) findViewById(R.id.homeButton);
+        ImageButton homeButton = findViewById(R.id.homeButton);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
