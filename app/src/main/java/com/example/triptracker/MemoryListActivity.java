@@ -19,7 +19,7 @@ public class MemoryListActivity extends AppCompatActivity {
 
 
 
-        public ArrayList<ExampleItem> createMemories(){
+    public ArrayList<ExampleItem> createMemories(){
         ArrayList<ExampleItem> exampleList = new ArrayList<>();
         try {
             FileInputStream fis = openFileInput("memories.txt");
@@ -32,7 +32,7 @@ public class MemoryListActivity extends AppCompatActivity {
             String itemName = "";
             String date = "";
             String description = "";
-            String location = "";
+            String location;
             while ((lines = bufferedReader.readLine()) != null){
                 if (count == 1){
                     itemName = lines;
