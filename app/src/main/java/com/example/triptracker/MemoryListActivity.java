@@ -33,18 +33,17 @@ public class MemoryListActivity extends AppCompatActivity {
             String description = "";
             String location = "";
             while ((lines = bufferedReader.readLine()) != null){
-                if (count == 1){
+                if (count == 1) {
                     itemName = lines;
                     count += 1;
-                }
-                else if (count == 2) {
+                } else if (count == 2) {
                     date = lines;
                     count += 1;
                 } else if (count == 3) {
                     description = lines;
-                    exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location));
-                    count = 1;
+                    count += 1;
                 } else if (count == 4) {
+                    location = lines;
                     exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location));
                     count = 1;
                 }
@@ -80,6 +79,7 @@ public class MemoryListActivity extends AppCompatActivity {
         if (createMemories() != null){
 
             int listSize = exampleList.size();
+
 
 
             mRecycleView = findViewById(R.id.recyclerView);

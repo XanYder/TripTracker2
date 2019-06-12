@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
             String date = "";
             String description = "";
             String location = "";
+
             while ((lines = bufferedReader.readLine()) != null) {
                 if (count == 1) {
                     itemName = lines;
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     description = lines;
                     count += 1;
                 } else if (count == 4) {
+                    location = lines;
                     exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location));
                     count = 1;
                 }
