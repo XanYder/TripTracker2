@@ -43,34 +43,53 @@
             android:visibility="gone" />
     </LinearLayout>
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:weightSum="2">
 
         <!-- Capture picture button -->
         <Button
+            android:id="@+id/btnBack"
+            android:layout_width="0dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorPrimary"
+            android:foreground="?attr/selectableItemBackground"
+            android:text="Go back"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Record video button -->
+        <Button
             android:id="@+id/btnCapturePicture"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dimen_8"
-            android:layout_weight="1"
+            android:layout_marginStart="40dp"
+            android:layout_marginBottom="8dp"
             android:background="@color/colorPrimary"
             android:foreground="?attr/selectableItemBackground"
+            android:minWidth="1dip"
             android:text="@string/btn_take_picture"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnBack" />
 
-        <!-- Record video button -->
         <Button
             android:id="@+id/btnRecordVideo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dimen_8"
-            android:layout_weight="1"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="8dp"
             android:background="@color/colorPrimary"
             android:foreground="?attr/selectableItemBackground"
+            android:minWidth="1dip"
             android:text="@string/btn_record_video"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnCapturePicture" />
+    </android.support.constraint.ConstraintLayout>
 </LinearLayout>
