@@ -3,6 +3,7 @@ package com.example.triptracker;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
+import android.location.Location;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
