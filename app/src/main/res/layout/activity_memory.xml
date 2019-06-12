@@ -129,5 +129,17 @@
         app:layout_constraintTop_toTopOf="@+id/mapButton"
         tools:text="Map" />
 
+    <ImageButton
+        android:id="@+id/deleteButton"
+        android:layout_width="66dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/white"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/delete_icon" />
+
 
 </android.support.constraint.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.triptracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +10,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 public class MemoryActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,7 @@ public class MemoryActivity extends AppCompatActivity {
         homeButton();
         mapButton();
         createButton();
+        deleteButton();
     }
 
     private void homeButton() {
@@ -67,6 +73,16 @@ public class MemoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MemoryActivity.this, Main2Activity.class));
+            }
+        });
+    }
+
+    private  void deleteButton() {
+        ImageButton deleButton = findViewById(R.id.deleteButton);
+        deleButton.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              startActivity(new Intent(MemoryActivity.this, MemoryListActivity.class));
             }
         });
     }

@@ -49,7 +49,7 @@
         android:layout_marginBottom="11dp"
         android:background="@android:color/white"
         android:scaleType="fitCenter"
-        android:tint="@android:color/holo_green_dark"
+        android:tint="#686767"
         app:srcCompat="@drawable/create_icon" />
 
     <ImageButton
@@ -92,7 +92,7 @@
         android:backgroundTint="@android:color/white"
         android:ems="10"
         android:text="Create"
-        android:textColor="@android:color/holo_green_light" />
+        android:textColor="#686767" />
 
     <TextView
         android:id="@+id/mapButtonText"
