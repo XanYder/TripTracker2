@@ -2,7 +2,7 @@ package com.example.triptracker;
 
 //import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
+//import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -10,7 +10,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+//import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -22,23 +22,24 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private static final int REQUEST_ACCESS_FINE_LOCATION = 0;
-    private static final LatLng PERTH = new LatLng(-31.952854, 115.857342);
+    /*private static final LatLng PERTH = new LatLng(-31.952854, 115.857342);
     private static final LatLng SYDNEY = new LatLng(-33.87365, 151.20689);
     //private static final Location SYDNEY = new Location("Sydney");
     private static final LatLng BRISBANE = new LatLng(-27.47093, 153.0235);
-    private static final LatLng MELBOURNE = new LatLng(-37.813, 144.962);
+    private static final LatLng MELBOURNE = new LatLng(-37.813, 144.962);*/
     private static final LatLng HRO = new LatLng(51.91732977623568,4.4843445754744655);
 
-
-    private Marker mPerth;
-    private Marker mSydney;
-    private Marker mBrisbane;
-    private Marker mMelbourne;
-    private Marker mHRO;
+    public ArrayList<ExampleItem> memories = new ArrayList<>();
 
     private GoogleMap mMap;
 
@@ -71,39 +72,50 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Move the camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(HRO));
         // Add some markers to the map, and add a data object to each marker.
-        mPerth = mMap.addMarker(new MarkerOptions()
-                .position(PERTH)
-                .draggable(true)
-                .title("Perth")
-                .snippet("this one is draggable"));
-        mPerth.setTag(0);
+        try{
+            FileInputStream fis = openFileInput("memories.txt");
+            InputStreamReader inputStreamReader = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
-        mSydney = mMap.addMarker(new MarkerOptions()
-                .position(SYDNEY)
-                .draggable(false)
-                .title("Sydney"));
-        mSydney.setTag(0);
+            String lines;
+            int count = 1;
+            int counter = 0;
+            String itemName = "";
+            String date = "";
+            String description = "";
+            String location;
+            while ((lines = bufferedReader.readLine()) != null){
+                if (count == 1){
+                    itemName = lines;
+                    count += 1;
+                }
+                else if (count == 2) {
+                    date = lines;
+                    count += 1;
+                } else if (count == 3) {
+                    description = lines;
+                    count += 1;
+                } else if (count == 4) {
+                    location = lines;
+                    String[] latlong = location.split(",");
+                    double latitude = Double.parseDouble(latlong[0]);
+                    double longitude = Double.parseDouble(latlong[1]);
+                    Marker marker = mMap.addMarker((new MarkerOptions()
+                            .position(new LatLng(latitude,longitude))
+                            .title(itemName)));
+                    marker.setTag(counter);
+                    memories.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location));
+                    count = 1;
+                    counter++;
+                }
 
-        mBrisbane = mMap.addMarker(new MarkerOptions()
-                .position(BRISBANE)
-                .title("Brisbane")
-                .snippet("this one has alpha transparancy going on")
-                .alpha(0.7f));
-        mBrisbane.setTag(0);
+            }
 
-        mMelbourne = mMap.addMarker(new MarkerOptions()
-                .position(MELBOURNE)
-                .title("Melbourne")
-                .snippet("This one has a custom color")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-        mMelbourne.setTag(0);
 
-        /*mHRO = mMap.addMarker(new MarkerOptions()
-                .position(HRO)
-                .draggable(false)
-                .title("Rotterdam University of Applied Sciences")
-                .snippet("This is our school"));
-        mHRO.setTag(0);*/
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
 
         // Set a listener for marker click.
         mMap.setOnMarkerClickListener(this);
@@ -143,17 +155,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public boolean onMarkerClick(final Marker marker) {
         // Retrieve the data from the marker.
-        Integer clickCount = (Integer) marker.getTag();
+        Integer id = (Integer) marker.getTag();
 
-        // Check if a click count was set, then display the click count.
-        /*if (clickCount != null) {
-            clickCount = clickCount + 1;
-            marker.setTag(clickCount);
-            Toast.makeText(this,
-                    marker.getTitle() +
-                            " has been clicked " + clickCount + " times.",
-                    Toast.LENGTH_SHORT).show();
-        }*/
+        Intent intent = new Intent(this, MemoryActivity.class);
+        intent.putExtra("title", String.valueOf(memories.get(id).getText1()));
+        intent.putExtra("description", String.valueOf(memories.get(id).getDiscription()));
+        intent.putExtra("location", String.valueOf(memories.get(id).getLocation()));
+        startActivity(intent);
+
 
         // Return false to indicate that we have not consumed the event and that we wish
         // for the default behavior to occur (which is for the camera to move such that the
