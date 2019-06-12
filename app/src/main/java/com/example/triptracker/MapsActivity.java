@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
+//import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -38,7 +38,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private static final int REQUEST_ACCESS_FINE_LOCATION = 0;
     /*private static final LatLng PERTH = new LatLng(-31.952854, 115.857342);
-    private static final LatLng SYDNEY = new LatLng(-33.87365, 151.20689);*/
+    private static final LatLng SYDNEY = new LatLng(-33.87365, 151.20689);
     private static final Location SYDNEY = new Location("Sydney");/*
     private static final LatLng BRISBANE = new LatLng(-27.47093, 153.0235);
     private static final LatLng MELBOURNE = new LatLng(-37.813, 144.962);*/
@@ -46,7 +46,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public ArrayList<ExampleItem> memories = new ArrayList<>();
 
-    private Marker mSydney;
     private GoogleMap mMap;
 
     @Override
@@ -89,7 +88,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             String itemName = "";
             String date = "";
             String description = "";
-            String location = "";
+            String location;
             while ((lines = bufferedReader.readLine()) != null){
                 if (count == 1){
                     itemName = lines;
@@ -115,7 +114,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         marker.setTag(counter);
                         Toast.makeText(this, String.valueOf(marker.getPosition()), Toast.LENGTH_SHORT).show();
                     }
-
 
                     memories.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location));
                     count = 1;
