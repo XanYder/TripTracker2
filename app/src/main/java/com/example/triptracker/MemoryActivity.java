@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +41,55 @@ public class MemoryActivity extends AppCompatActivity {
             }
         });
 
+        homeButton();
+        mapButton();
+        createButton();
+        deleteButton();
+
     }
+
+    private void homeButton() {
+        ImageButton homeButton = findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+    }
+
+    private void mapButton() {
+        ImageButton mapButton = findViewById(R.id.mapButton);
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MemoryActivity.this, MapsActivity.class));
+            }
+        });
+    }
+
+    private void createButton() {
+        ImageButton createButton = findViewById(R.id.createButton);
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MemoryActivity.this, Main2Activity.class));
+            }
+        });
+    }
+
+    private void deleteButton() {
+        ImageButton deleteButton = findViewById(R.id.deleteButton);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MemoryActivity.this, MemoryListActivity.class));
+            }
+        });
+    }
+
+
 
 
 }

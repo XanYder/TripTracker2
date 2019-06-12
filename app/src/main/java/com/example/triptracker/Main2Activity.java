@@ -151,7 +151,6 @@ public class Main2Activity extends AppCompatActivity {
 
 
         mapButton();
-        listButton();
         homeButton();
         cameraButton();
         //init();
@@ -200,15 +199,6 @@ public class Main2Activity extends AppCompatActivity {
         });
     }
 
-    private void listButton() {
-        ImageButton listButton = findViewById(R.id.listButton);
-        listButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Main2Activity.this, MemoryListActivity.class));
-            }
-        });
-    }
 
     private void homeButton() {
         ImageButton homeButton = findViewById(R.id.homeButton);

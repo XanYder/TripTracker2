@@ -131,4 +131,14 @@ public class MemoryListActivity extends AppCompatActivity {
         });
     }
 
+    private void createButton() {
+        ImageButton createButton = findViewById(R.id.createButton);
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MemoryListActivity.this, Main2Activity.class));
+            }
+        });
+    }
+
 }

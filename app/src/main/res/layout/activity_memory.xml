@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -41,10 +42,114 @@
         android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="88dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="415dp"
+        android:layout_height="60dp"
+        android:background="@android:color/white"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="-2dp" />
+
+    <ImageButton
+        android:id="@+id/homeButton"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:background="@android:color/white"
+        android:scaleType="fitCenter"
+        android:tint="#686767"
+        app:layout_constraintEnd_toStartOf="@+id/toolbar"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="@+id/createButton"
+        app:srcCompat="@drawable/home_icon" />
+
+    <ImageButton
+        android:id="@+id/createButton"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:background="@android:color/white"
+        android:scaleType="fitCenter"
+        android:tint="#686767"
+        app:layout_constraintEnd_toStartOf="@+id/toolbar"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toEndOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:srcCompat="@drawable/create_icon" />
+
+    <ImageButton
+        android:id="@+id/mapButton"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:background="@android:color/white"
+        android:scaleType="fitCenter"
+        android:tint="#686767"
+        app:layout_constraintEnd_toStartOf="@+id/toolbar"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toEndOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="@+id/createButton"
+        app:srcCompat="@drawable/map_icon" />
+
+    <TextView
+        android:id="@+id/homeButtonText"
+        android:layout_width="45dp"
+        android:layout_height="17dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="8dp"
+        android:background="@android:color/white"
+        android:backgroundTint="@android:color/white"
+        android:ems="10"
+        android:text="Home"
+        android:textColor="#686767"
+        app:layout_constraintEnd_toEndOf="@+id/homeButton"
+        app:layout_constraintTop_toTopOf="@+id/homeButton"
+        tools:text="Home" />
+
+    <TextView
+        android:id="@+id/createButtonText"
+        android:layout_width="48dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="12dp"
+        android:background="@android:color/white"
+        android:backgroundTint="@android:color/white"
+        android:ems="10"
+        android:text="Create"
+        android:textColor="#686767"
+        app:layout_constraintEnd_toEndOf="@+id/createButton"
+        app:layout_constraintTop_toTopOf="@+id/createButton"
+        tools:text="Create" />
+
+    <TextView
+        android:id="@+id/mapButtonText"
+        android:layout_width="48dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="44dp"
+        android:background="@android:color/white"
+        android:backgroundTint="@android:color/white"
+        android:ems="10"
+        android:text="Map"
+        android:textColor="#686767"
+        app:layout_constraintEnd_toEndOf="@+id/mapButton"
+        app:layout_constraintTop_toTopOf="@+id/mapButton"
+        tools:text="Map" />
+
+    <ImageButton
+        android:id="@+id/deleteButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="244dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toStartOf="@+id/cameraButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/delete_icon" />
 
 </android.support.constraint.ConstraintLayout>
