@@ -57,11 +57,8 @@ public class Main2Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-<<<<<<< HEAD
         mSearchText = findViewById(R.id.textInputLayout2);
-=======
         mSearchText = findViewById(R.id.location);
->>>>>>> parent of f0eec3c... Merge branch 'Manuel' of https://github.com/XanYder/TripTracker2 into Manuel
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         /*fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
