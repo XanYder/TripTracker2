@@ -57,9 +57,13 @@ public class Main2Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+<<<<<<< HEAD
         mSearchText = findViewById(R.id.textInputLayout2);
+=======
+        mSearchText = findViewById(R.id.location);
+>>>>>>> parent of f0eec3c... Merge branch 'Manuel' of https://github.com/XanYder/TripTracker2 into Manuel
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+        /*fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
                 // Got last known location. In some rare situations this can be null.
@@ -70,7 +74,7 @@ public class Main2Activity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
             }
-        });
+        });*/
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
