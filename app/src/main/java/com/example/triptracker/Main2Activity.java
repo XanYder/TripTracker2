@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -101,30 +100,40 @@ public class Main2Activity extends AppCompatActivity {
         createMemory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 TextInputEditText title = findViewById(R.id.title);
                 String text = title.getText().toString();
-                setTextinFile(text + "\n");
-
-                Switch dateSwitch = findViewById(R.id.date_switch);
-                if (dateSwitch.isChecked()){
-                    String text2 = autoDate.getText().toString();
-                    setTextinFile(text2 + "\n");
-                }
-                else{
-                    TextInputEditText date = findViewById(R.id.custom_date_text);
-                    String text2 = date.getText().toString();
-                    setTextinFile(text2 + "\n");
-                }
-
-                EditText description = findViewById(R.id.description);
-                setTextinFile(description.getText().toString() + "\n");
-
                 TextInputEditText location = findViewById(R.id.location);
-                setTextinFile(location.getText().toString() + "\n");
+
+                Button test = findViewById(R.id.cameraButton);
+
+                if (TextUtils.isEmpty(location.getText()) != true && TextUtils.isEmpty(title.getText()) != true) {
+
+                    setTextinFile(text + "\n");
+
+                    Switch dateSwitch = findViewById(R.id.date_switch);
+                    if (dateSwitch.isChecked()) {
+                        String text2 = autoDate.getText().toString();
+                        setTextinFile(text2 + "\n");
+                    } else {
+                        TextInputEditText date = findViewById(R.id.custom_date_text);
+                        String text2 = date.getText().toString();
+                        setTextinFile(text2 + "\n");
+                    }
+
+                    EditText description = findViewById(R.id.description);
+                    setTextinFile(description.getText().toString() + "\n");
+                    setTextinFile(location.getText().toString() + "\n");
 
 
-                Intent intent = new Intent(Main2Activity.this, MainActivity.class);
-                startActivity(intent);
+                    Intent intent = new Intent(Main2Activity.this, MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(Main2Activity.this, "Please enter at least a title and an adress", Toast.LENGTH_LONG).show();
+
+                }
+
+
             }
         });
 
@@ -178,7 +187,6 @@ public class Main2Activity extends AppCompatActivity {
             Address address = list.get(0);
 
             Log.d(TAG, "geoLocate: found a location: " + address.toString());
-            //Toast.makeText(this, address.toString(), Toast.LENGTH_SHORT).show();
         }
     }
     private void mapButton() {
