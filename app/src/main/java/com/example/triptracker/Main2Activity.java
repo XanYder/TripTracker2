@@ -56,9 +56,9 @@ public class Main2Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mSearchText = findViewById(R.id.textInputLayout2);
+        mSearchText = findViewById(R.id.location);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+        /*fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
                 // Got last known location. In some rare situations this can be null.
@@ -69,7 +69,7 @@ public class Main2Activity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                 }
             }
-        });
+        });*/
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
@@ -156,6 +156,7 @@ public class Main2Activity extends AppCompatActivity {
                         || i == EditorInfo.IME_ACTION_DONE
                         || keyEvent.getAction() == KeyEvent.ACTION_DOWN
                         || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
+                    //execute our method for searching
                     geoLocate();
                 }
                 return false;

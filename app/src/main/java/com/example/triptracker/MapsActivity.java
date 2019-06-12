@@ -2,7 +2,7 @@ package com.example.triptracker;
 
 //import android.content.Context;
 import android.content.Intent;
-//import android.location.Location;
+import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 
@@ -33,14 +33,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private static final int REQUEST_ACCESS_FINE_LOCATION = 0;
     /*private static final LatLng PERTH = new LatLng(-31.952854, 115.857342);
-    private static final LatLng SYDNEY = new LatLng(-33.87365, 151.20689);
-    //private static final Location SYDNEY = new Location("Sydney");
+    private static final LatLng SYDNEY = new LatLng(-33.87365, 151.20689);*/
+    private static final Location SYDNEY = new Location("Sydney");/*
     private static final LatLng BRISBANE = new LatLng(-27.47093, 153.0235);
     private static final LatLng MELBOURNE = new LatLng(-37.813, 144.962);*/
     private static final LatLng HRO = new LatLng(51.91732977623568,4.4843445754744655);
 
     public ArrayList<ExampleItem> memories = new ArrayList<>();
 
+    private Marker mSydney;
     private GoogleMap mMap;
 
     @Override
@@ -83,7 +84,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             String itemName = "";
             String date = "";
             String description = "";
-            String location;
+            String location = "";
             while ((lines = bufferedReader.readLine()) != null){
                 if (count == 1){
                     itemName = lines;
@@ -97,13 +98,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     count += 1;
                 } else if (count == 4) {
                     location = lines;
-                    String[] latlong = location.split(",");
-                    double latitude = Double.parseDouble(latlong[0]);
-                    double longitude = Double.parseDouble(latlong[1]);
-                    Marker marker = mMap.addMarker((new MarkerOptions()
-                            .position(new LatLng(latitude,longitude))
-                            .title(itemName)));
-                    marker.setTag(counter);
+                    if(location.matches("\\d+(?:\\.\\d+)?"))
+                    {
+                        Location mark = new Location(location);
+                        double latitude = mark.getLatitude();
+                        double longitude = mark.getLongitude();
+                    }
+                    else
+                    {
+                        String[] latlong = location.split(",");
+                        double latitude = Double.parseDouble(latlong[0]);
+                        double longitude = Double.parseDouble(latlong[1]);
+                        Marker marker = mMap.addMarker((new MarkerOptions()
+                                .position(new LatLng(latitude,longitude))
+                                .title(itemName)));
+                        marker.setTag(counter);
+                    }
+
                     memories.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location));
                     count = 1;
                     counter++;
@@ -115,7 +126,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }catch (IOException e){
             e.printStackTrace();
         }
-
 
         // Set a listener for marker click.
         mMap.setOnMarkerClickListener(this);

@@ -98,7 +98,8 @@
             android:id="@+id/location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Input Location?" />
+            android:hint="Please enter coordinates"
+            android:imeOptions="actionSearch"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
