@@ -1,32 +1,37 @@
 package com.example.triptracker;
 
-//import android.content.Context;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-//import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-//import android.support.v4.content.ContextCompat;
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+//import android.content.Context;
+//import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+//import android.support.v4.content.ContextCompat;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -98,22 +103,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     count += 1;
                 } else if (count == 4) {
                     location = lines;
-                    if(location.matches("\\d+(?:\\.\\d+)?"))
-                    {
-                        Location mark = new Location(location);
-                        double latitude = mark.getLatitude();
-                        double longitude = mark.getLongitude();
-                    }
-                    else
-                    {
-                        String[] latlong = location.split(",");
-                        double latitude = Double.parseDouble(latlong[0]);
-                        double longitude = Double.parseDouble(latlong[1]);
+                    Geocoder gc = new Geocoder(this, Locale.getDefault());
+                    if (gc.isPresent()) {
+                        List<Address> list = gc.getFromLocationName(location, 1);
+                        Address address = list.get(0);
+                        double lat = address.getLatitude();
+                        double lng = address.getLongitude();
                         Marker marker = mMap.addMarker((new MarkerOptions()
-                                .position(new LatLng(latitude,longitude))
+                                .position(new LatLng(lat, lng))
                                 .title(itemName)));
                         marker.setTag(counter);
+                        Toast.makeText(this, String.valueOf(marker.getPosition()), Toast.LENGTH_SHORT).show();
                     }
+
 
                     memories.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location));
                     count = 1;
