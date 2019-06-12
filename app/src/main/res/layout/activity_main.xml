@@ -197,11 +197,11 @@
         app:layout_constraintEnd_toStartOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/createButton"
+        app:layout_constraintTop_toTopOf="@+id/listButton"
         app:srcCompat="@drawable/home_icon" />
 
     <ImageButton
-        android:id="@+id/createButton"
+        android:id="@+id/listButton"
         android:layout_width="70dp"
         android:layout_height="50dp"
         android:background="@android:color/white"
@@ -211,7 +211,7 @@
         app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toEndOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:srcCompat="@drawable/create_icon" />
+        app:srcCompat="@drawable/list_icon" />
 
     <ImageButton
         android:id="@+id/mapButton"
@@ -223,7 +223,7 @@
         app:layout_constraintEnd_toStartOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toEndOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/createButton"
+        app:layout_constraintTop_toTopOf="@+id/listButton"
         app:srcCompat="@drawable/map_icon" />
 
     <TextView
@@ -242,19 +242,18 @@
         tools:text="Home" />
 
     <TextView
-        android:id="@+id/createButtonText"
+        android:id="@+id/listButtonText"
         android:layout_width="48dp"
-        android:layout_height="15dp"
+        android:layout_height="16dp"
         android:layout_marginTop="44dp"
-        android:layout_marginEnd="12dp"
         android:background="@android:color/white"
         android:backgroundTint="@android:color/white"
         android:ems="10"
-        android:text="Create"
+        android:text="List"
         android:textColor="#686767"
-        app:layout_constraintEnd_toEndOf="@+id/createButton"
-        app:layout_constraintTop_toTopOf="@+id/createButton"
-        tools:text="Create" />
+        app:layout_constraintEnd_toEndOf="@+id/listButton"
+        app:layout_constraintTop_toTopOf="@+id/listButton"
+        tools:text="List" />
 
     <TextView
         android:id="@+id/mapButtonText"
@@ -268,7 +267,7 @@
         android:textColor="#686767"
         app:layout_constraintEnd_toEndOf="@+id/mapButton"
         app:layout_constraintTop_toTopOf="@+id/mapButton"
-        tools:text="Map" />
+        tools:text="List" />
 
 
 

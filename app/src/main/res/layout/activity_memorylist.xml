@@ -40,7 +40,7 @@
         app:srcCompat="@drawable/home_icon" />
 
     <ImageButton
-        android:id="@+id/createButton"
+        android:id="@+id/listButton"
         android:layout_width="70dp"
         android:layout_height="50dp"
         android:layout_alignEnd="@+id/toolbar2"
@@ -50,7 +50,7 @@
         android:background="@android:color/white"
         android:scaleType="fitCenter"
         android:tint="@android:color/holo_green_dark"
-        app:srcCompat="@drawable/create_icon" />
+        app:srcCompat="@drawable/list_icon" />
 
     <ImageButton
         android:id="@+id/mapButton"
@@ -81,17 +81,17 @@
         android:textColor="#686767" />
 
     <TextView
-        android:id="@+id/createButtonText"
+        android:id="@+id/listButtonText"
         android:layout_width="45dp"
         android:layout_height="17dp"
         android:layout_alignEnd="@+id/toolbar2"
         android:layout_alignBottom="@+id/recyclerView"
-        android:layout_marginEnd="301dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginEnd="293dp"
+        android:layout_marginBottom="-2dp"
         android:background="@android:color/white"
         android:backgroundTint="@android:color/white"
         android:ems="10"
-        android:text="Create"
+        android:text="List"
         android:textColor="@android:color/holo_green_light" />
 
     <TextView

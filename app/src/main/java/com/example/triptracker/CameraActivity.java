@@ -79,16 +79,6 @@ public class CameraActivity extends AppCompatActivity {
         btnCapturePicture = findViewById(R.id.btnCapturePicture);
         btnRecordVideo = findViewById(R.id.btnRecordVideo);
 
-        Button btnBack = findViewById(R.id.btnBack);
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
         /**
          * Capture image on button click
          */

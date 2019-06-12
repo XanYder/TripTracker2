@@ -6,11 +6,6 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-//import android.content.Context;
-
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -76,7 +71,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap map) {
-        createButton();
+        listButton();
         homeButton();
         createMemory();
         mMap = map;
@@ -188,18 +183,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    private void createButton() {
-        Button createButton = findViewById(R.id.createButton);
-        createButton.setOnClickListener(new View.OnClickListener() {
+    private void listButton() {
+        ImageButton listButton = findViewById(R.id.listButton);
+        listButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MapsActivity.this, Main2Activity.class));
+                startActivity(new Intent(MapsActivity.this, MemoryListActivity.class));
             }
         });
     }
 
     private void homeButton() {
-        Button homeButton = findViewById(R.id.homeButton);
+        ImageButton homeButton = findViewById(R.id.homeButton);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -210,8 +205,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void createMemory() {
-        Button createButton = findViewById(R.id.create_memory);
-        createButton.setOnClickListener(new View.OnClickListener() {
+        Button listButton = findViewById(R.id.create_memory);
+        listButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MapsActivity.this, Main2Activity.class));
