@@ -61,14 +61,18 @@ public class Main2Activity extends AppCompatActivity {
         PlacesClient placesClient = Places.createClient(this);
         mSearchText = findViewById(R.id.location);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+        /*fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
                 // Got last known location. In some rare situations this can be null.
-                Toast.makeText(Main2Activity.this, Double.toString(location.getLatitude()),
+                Toast.makeText(Main2Activity.this, location.toString(),
                         Toast.LENGTH_LONG).show();
+                if (location != null) {
+                    Toast.makeText(Main2Activity.this, "location doesn't equal null",
+                            Toast.LENGTH_LONG).show();
+                }
             }
-        });
+        });*/
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
