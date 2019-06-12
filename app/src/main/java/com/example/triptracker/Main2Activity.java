@@ -20,7 +20,8 @@ import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,7 +37,6 @@ import java.util.Locale;
 
 public class Main2Activity extends AppCompatActivity {
 
-
     public void setTextinFile(String text){
         FileOutputStream outputStream;
 
@@ -49,13 +49,16 @@ public class Main2Activity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
+    public String apiKey = "AIzaSyD5pLtC8lv397OU31Tas86utbmeQAl1jl8";
     private FusedLocationProviderClient fusedLocationClient;
     private EditText mSearchText;
     private static final String TAG = "MyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Places.initialize(getApplicationContext(), apiKey);
+
+        PlacesClient placesClient = Places.createClient(this);
         mSearchText = findViewById(R.id.location);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         /*fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
