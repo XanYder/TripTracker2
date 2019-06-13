@@ -55,6 +55,45 @@ public class Main2Activity extends AppCompatActivity {
     private EditText mSearchText;
     private static final String TAG = "MyActivity";
 
+    private void init(){
+        Log.d(TAG, "init: initializing");
+        EditText location = findViewById(R.id.location);
+        location.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_SEARCH
+                        || i == EditorInfo.IME_ACTION_DONE
+                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
+                    //execute our method for searching
+                    if (geoLocate() != "No"){
+                        EditText location = findViewById(R.id.location);
+                        location.setText(geoLocate());
+                    }
+                    else{
+                        Toast.makeText(Main2Activity.this,"Could not find that adress, please try again.", Toast.LENGTH_LONG).show();
+                    }
+                }
+                return false;
+            }
+        });
+
+        location.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if (geoLocate() != "No"){
+                        EditText location = findViewById(R.id.location);
+                        location.setText(geoLocate());
+                    }
+                    else{
+                        Toast.makeText(Main2Activity.this,"Could not find that adress, please try again.", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Places.initialize(getApplicationContext(), apiKey);
@@ -108,7 +147,7 @@ public class Main2Activity extends AppCompatActivity {
 
                 Button test = findViewById(R.id.cameraButton);
 
-                if (TextUtils.isEmpty(location.getText()) != true && TextUtils.isEmpty(title.getText()) != true) {
+                if (TextUtils.isEmpty(location.getText()) != true && TextUtils.isEmpty(title.getText()) != true && geoLocate() != "No") {
 
                     setTextinFile(text + "\n");
 
@@ -130,7 +169,7 @@ public class Main2Activity extends AppCompatActivity {
                     Intent intent = new Intent(Main2Activity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(Main2Activity.this, "Please enter at least a title and an adress", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Main2Activity.this, "Please enter at least a title and a valid adress", Toast.LENGTH_LONG).show();
 
                 }
 
@@ -153,28 +192,14 @@ public class Main2Activity extends AppCompatActivity {
         mapButton();
         homeButton();
         cameraButton();
-        //init();
+        init();
     }
 
-    private void init(){
-        Log.d(TAG, "init: initializing");
-        mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if (i == EditorInfo.IME_ACTION_SEARCH
-                        || i == EditorInfo.IME_ACTION_DONE
-                        || keyEvent.getAction() == KeyEvent.ACTION_DOWN
-                        || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
-                    //execute our method for searching
-                    geoLocate();
-                }
-                return false;
-            }
-        });
-    }
-    private void geoLocate(){
+
+    private String geoLocate(){
         Log.d(TAG, "geoLocate: geolocating");
-        String searchString = mSearchText.getText().toString();
+        EditText location = findViewById(R.id.location);
+        String searchString = location.getText().toString();
 
         Geocoder geocoder = new Geocoder(Main2Activity.this);
         List<Address> list = new ArrayList<>();
@@ -182,13 +207,16 @@ public class Main2Activity extends AppCompatActivity {
             list= geocoder.getFromLocationName(searchString, 1);
         }catch (IOException e){
             Log.e(TAG, "geoLocate: IOException: " + e.getMessage());
+            return "No";
         }
         if (list.size() > 0) {
             Address address = list.get(0);
-
             Log.d(TAG, "geoLocate: found a location: " + address.toString());
+            return String.valueOf(list.get(0).getAddressLine(0));
         }
+        return "No";
     }
+
     private void mapButton() {
         ImageButton mapButton = findViewById(R.id.mapButton);
         mapButton.setOnClickListener(new View.OnClickListener() {
