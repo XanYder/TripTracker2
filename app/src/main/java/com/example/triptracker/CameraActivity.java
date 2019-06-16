@@ -3,10 +3,13 @@ package com.example.triptracker;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -56,6 +59,12 @@ public class CameraActivity extends AppCompatActivity {
     private VideoView videoPreview;
     private Button btnCapturePicture, btnRecordVideo;
 
+
+    private void pickImageFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, 1234);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,10 +118,66 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
 
+
+
+        Button button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_DENIED){
+                        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, 1);
+                    }
+                    else{
+                        pickImageFromGallery();
+                    }
+                } else{
+                    pickImageFromGallery();
+                }
+
+            }
+        });
+
+
+
+
         // restoring storage image path from saved instance state
         // otherwise the path will be null on device rotation
         restoreFromBundle(savedInstanceState);
+
+
     }
+
+
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 1: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(CameraActivity.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+        }
+    }
+
+
 
     /**
      * Restoring store image path from saved instance state
@@ -234,6 +299,7 @@ public class CameraActivity extends AppCompatActivity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Toast.makeText(getApplicationContext(), String.valueOf(requestCode), Toast.LENGTH_LONG).show();
         // if the result is capturing Image
         if (requestCode == CAMERA_CAPTURE_IMAGE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
@@ -273,6 +339,11 @@ public class CameraActivity extends AppCompatActivity {
                         "Sorry! Failed to record video", Toast.LENGTH_SHORT)
                         .show();
             }
+        } else if (requestCode == 1234 && resultCode == RESULT_OK){
+            imgPreview.setVisibility(View.VISIBLE);
+            txtDescription.setVisibility(View.GONE);
+            imgPreview.setImageURI(data.getData());
+
         }
     }
 
