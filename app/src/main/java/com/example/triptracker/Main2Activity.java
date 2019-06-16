@@ -52,6 +52,7 @@ public class Main2Activity extends AppCompatActivity {
     public String apiKey = "AIzaSyD5pLtC8lv397OU31Tas86utbmeQAl1jl8";
     private FusedLocationProviderClient fusedLocationClient;
     private EditText mSearchText;
+    public Address address;
     private static final String TAG = "MyActivity";
 
     private void init(){
@@ -105,7 +106,7 @@ public class Main2Activity extends AppCompatActivity {
                 // Got last known location. In some rare situations this can be null.
                 try {
                     List<Address> current = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                    Address address = current.get(0);
+                    address = current.get(0);
                     mSearchText = findViewById(R.id.location);
                     mSearchText.setText(address.getAddressLine(0));
                 } catch (IOException e) {
@@ -125,7 +126,6 @@ public class Main2Activity extends AppCompatActivity {
         dateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Switch dateSwitch = findViewById(R.id.date_switch);
                 TextView autoDate = findViewById(R.id.auto_date);
                 final TextInputLayout customDate = findViewById(R.id.date_layout);
                 if (dateSwitch.isChecked() == Boolean.TRUE) {
@@ -137,7 +137,18 @@ public class Main2Activity extends AppCompatActivity {
                 }
             }
         });
-
+        final Switch locationSwitch = findViewById(R.id.location_switch);
+        locationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                mSearchText = findViewById(R.id.location);
+                if(locationSwitch.isChecked() == Boolean.TRUE){
+                    mSearchText.setText(address.getAddressLine(0));
+                }else{
+                    mSearchText.setText("");
+                }
+            }
+        });
         Button createMemory = findViewById(R.id.createMemory);
         createMemory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,7 +174,6 @@ public class Main2Activity extends AppCompatActivity {
                     EditText description = findViewById(R.id.description);
                     setTextinFile(description.getText().toString() + "\n");
                     setTextinFile(location.getText().toString() + "\n");
-
 
                     Intent intent = new Intent(Main2Activity.this, MainActivity.class);
                     startActivity(intent);
