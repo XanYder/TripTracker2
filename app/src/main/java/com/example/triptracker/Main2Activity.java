@@ -100,13 +100,22 @@ public class Main2Activity extends AppCompatActivity {
 
         PlacesClient placesClient = Places.createClient(this);
         mSearchText = findViewById(R.id.location);
+        final Geocoder geocoder = new Geocoder(Main2Activity.this);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
                 // Got last known location. In some rare situations this can be null.
-                Toast.makeText(Main2Activity.this, Double.toString(location.getLatitude()),
-                        Toast.LENGTH_LONG).show();
+                try {
+                    List<Address> current = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                    Address address = current.get(0);
+                    Toast.makeText(Main2Activity.this, (address.getAddressLine(0)),
+                            Toast.LENGTH_LONG).show();
+                    //mSearchText.setText(address.getAddressLine(0));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
 
