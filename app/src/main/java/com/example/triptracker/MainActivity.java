@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -26,6 +27,15 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
 
     int memories = 0;
+
+    public ArrayList<ExampleItem> reverse(ArrayList<ExampleItem> list) {
+        if (list.size() > 1) {
+            ExampleItem value = list.remove(0);
+            reverse(list);
+            list.add(value);
+        }
+        return list;
+    }
 
     public String getTextFromFile(int index){
         List<String> memNames = new ArrayList<>();
@@ -108,12 +118,14 @@ public class MainActivity extends AppCompatActivity {
                     videosURI.add(lines.substring(6));
                 } else if (identify.equals("impa")) {
                     images.add(lines.substring(6));
+                } else if (identify.equals("imur")) {
+                    imageURI.add(lines.substring(5));
                 }
 
 
             }
             exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location, images, videos, imageURI, videosURI));
-            return exampleList;
+            return reverse(exampleList);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -144,10 +156,20 @@ public class MainActivity extends AppCompatActivity {
 
         if (amount > 0) {
             ImageView memoryPic1 = findViewById(R.id.imageView3);
+            if (exampleList.get(0).getmImages().size() > 0) {
+                Bitmap bmImg = BitmapFactory.decodeFile(exampleList.get(0).getmImages().get(0));
+                memoryPic1.setImageBitmap(bmImg);
+            } else if (exampleList.get(0).getmImagesURI().size() > 0) {
+                Uri myUri = Uri.parse(exampleList.get(0).getmImagesURI().get(0));
+                memoryPic1.setImageURI(myUri);
 
-            Bitmap bmImg = BitmapFactory.decodeFile(exampleList.get(0).getmImages().get(0));
-            memoryPic1.setImageBitmap(bmImg);
+            } else {
+                memoryPic1.setImageResource(R.drawable.circle);
+            }
+
+
             final int click1 = exampleList.size() - 1;
+
             //Toast.makeText(this, String.valueOf(exampleList.size()), Toast.LENGTH_SHORT).show();
             ImageView one = findViewById(R.id.imageView3);
             one.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +183,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             if (amount > 1) {
+
+                ImageView memoryPic2 = findViewById(R.id.imageView8);
+                if (exampleList.get(1).getmImages().size() > 0) {
+                    Bitmap bmImg = BitmapFactory.decodeFile(exampleList.get(1).getmImages().get(0));
+                    memoryPic2.setImageBitmap(bmImg);
+                } else if (exampleList.get(1).getmImagesURI().size() > 0) {
+                    Uri myUri = Uri.parse(exampleList.get(1).getmImagesURI().get(0));
+                    memoryPic2.setImageURI(myUri);
+
+
+                } else {
+                    memoryPic2.setImageResource(R.drawable.circle);
+                }
                 final int click2 = exampleList.size() - 2;
                 ImageView two = findViewById(R.id.imageView8);
                 two.setOnClickListener(new View.OnClickListener() {
@@ -175,6 +210,19 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 if (amount > 2) {
+
+                    ImageView memoryPic3 = findViewById(R.id.imageView9);
+                    if (exampleList.get(2).getmImages().size() > 0) {
+                        Bitmap bmImg = BitmapFactory.decodeFile(exampleList.get(2).getmImages().get(0));
+                        memoryPic3.setImageBitmap(bmImg);
+                    } else if (exampleList.get(2).getmImagesURI().size() > 0) {
+                        Uri myUri = Uri.parse(exampleList.get(2).getmImagesURI().get(0));
+                        memoryPic3.setImageURI(myUri);
+
+
+                    } else {
+                        memoryPic3.setImageResource(R.drawable.circle);
+                    }
                     final int click3 = exampleList.size() - 3;
                     ImageView three = findViewById(R.id.imageView9);
                     three.setOnClickListener(new View.OnClickListener() {

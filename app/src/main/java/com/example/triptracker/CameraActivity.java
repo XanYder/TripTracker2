@@ -68,7 +68,7 @@ public class CameraActivity extends AppCompatActivity {
     private ArrayList<VideoView> allVideos = new ArrayList<VideoView>();
 
     private void pickImageFromGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.setType("image/*");
         startActivityForResult(intent, 1234);
     }
