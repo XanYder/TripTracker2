@@ -24,7 +24,7 @@ public class MemoryActivity extends AppCompatActivity {
 
         TextView location = findViewById(R.id.location);
         location.setText(getIntent().getStringExtra("location"));
-        Toast.makeText(this, String.valueOf(getIntent().getStringExtra("location")), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, String.valueOf(getIntent().getStringExtra("location")), Toast.LENGTH_SHORT).show();
 
 
         ImageView button = findViewById(R.id.cameraButton);
@@ -34,7 +34,7 @@ public class MemoryActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(Intent.ACTION_SEND);
                 myIntent.setType("text/plain");
                 String shareBody = getIntent().getStringExtra("description");
-                String shareSub = getIntent().getStringExtra("title");
+                //String shareSub = getIntent().getStringExtra("title");
                 myIntent.putExtra(Intent.EXTRA_SUBJECT, shareBody);
                 myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(myIntent, "Share using"));
@@ -88,9 +88,6 @@ public class MemoryActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
 
 }
 

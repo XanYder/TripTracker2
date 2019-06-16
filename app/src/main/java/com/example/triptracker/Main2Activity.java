@@ -22,7 +22,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.net.PlacesClient;
+//import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -66,7 +65,7 @@ public class Main2Activity extends AppCompatActivity {
                         || keyEvent.getAction() == KeyEvent.ACTION_DOWN
                         || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
                     //execute our method for searching
-                    if (geoLocate() != "No"){
+                    if (!geoLocate().equals("No")){
                         EditText location = findViewById(R.id.location);
                         location.setText(geoLocate());
                     }
@@ -82,7 +81,7 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus){
-                    if (geoLocate() != "No"){
+                    if (!geoLocate().equals("No")){
                         EditText location = findViewById(R.id.location);
                         location.setText(geoLocate());
                     }
@@ -132,8 +131,6 @@ public class Main2Activity extends AppCompatActivity {
                 if (dateSwitch.isChecked() == Boolean.TRUE) {
                     customDate.setVisibility(View.INVISIBLE);
                     autoDate.setVisibility(View.VISIBLE);
-
-
                 } else {
                     customDate.setVisibility(View.VISIBLE);
                     autoDate.setVisibility(View.INVISIBLE);
@@ -141,19 +138,15 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
-
         Button createMemory = findViewById(R.id.createMemory);
         createMemory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 TextInputEditText title = findViewById(R.id.title);
                 String text = title.getText().toString();
                 TextInputEditText location = findViewById(R.id.location);
-
-                Button test = findViewById(R.id.cameraButton);
-
-                if (TextUtils.isEmpty(location.getText()) != true && TextUtils.isEmpty(title.getText()) != true && geoLocate() != "No") {
+                //Button test = findViewById(R.id.cameraButton);
+                if (!TextUtils.isEmpty(location.getText()) && !TextUtils.isEmpty(title.getText()) && !geoLocate().equals("No")) {
 
                     setTextinFile(text + "\n");
 
@@ -176,10 +169,7 @@ public class Main2Activity extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     Toast.makeText(Main2Activity.this, "Please enter at least a title and a valid adress", Toast.LENGTH_LONG).show();
-
                 }
-
-
             }
         });
 
@@ -187,20 +177,16 @@ public class Main2Activity extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 deleteFile("memories.txt");
                 Intent intent = new Intent(Main2Activity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
-
-
         mapButton();
         homeButton();
         cameraButton();
         init();
     }
-
 
     private String geoLocate(){
         Log.d(TAG, "geoLocate: geolocating");
@@ -208,7 +194,7 @@ public class Main2Activity extends AppCompatActivity {
         String searchString = location.getText().toString();
 
         Geocoder geocoder = new Geocoder(Main2Activity.this);
-        List<Address> list = new ArrayList<>();
+        List<Address> list;
         try{
             list= geocoder.getFromLocationName(searchString, 1);
         }catch (IOException e){
@@ -232,7 +218,6 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
     }
-
 
     private void homeButton() {
         ImageButton homeButton = findViewById(R.id.homeButton);
