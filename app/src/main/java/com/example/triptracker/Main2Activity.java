@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class Main2Activity extends AppCompatActivity {
+    private boolean addedTitle = false;
 
     public void setTextinFile(String text){
         FileOutputStream outputStream;
@@ -129,6 +130,7 @@ public class Main2Activity extends AppCompatActivity {
                 TextInputEditText title = findViewById(R.id.theTitle);
                 String text = title.getText().toString();
                 setTextinFile("title" + text + "\n");
+                addedTitle = true;
                 startActivity(new Intent(Main2Activity.this, CameraActivity.class));
 
             }
@@ -161,7 +163,9 @@ public class Main2Activity extends AppCompatActivity {
                 //Button test = findViewById(R.id.cameraButton);
                 if (!TextUtils.isEmpty(location.getText()) && !TextUtils.isEmpty(title.getText()) && !geoLocate().equals("No")) {
 
-
+                    if (addedTitle == false) {
+                        setTextinFile("title" + text + "\n");
+                    }
                     Switch dateSwitch = findViewById(R.id.date_switch);
                     if (dateSwitch.isChecked()) {
                         String text2 = autoDate.getText().toString();

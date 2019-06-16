@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-            final int click1 = exampleList.size() - 1;
+            final int click1 = 0;
 
             //Toast.makeText(this, String.valueOf(exampleList.size()), Toast.LENGTH_SHORT).show();
             ImageView one = findViewById(R.id.imageView3);
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     memoryPic2.setImageResource(R.drawable.circle);
                 }
-                final int click2 = exampleList.size() - 2;
+                final int click2 = 1;
                 ImageView two = findViewById(R.id.imageView8);
                 two.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         memoryPic3.setImageResource(R.drawable.circle);
                     }
-                    final int click3 = exampleList.size() - 3;
+                    final int click3 = 2;
                     ImageView three = findViewById(R.id.imageView9);
                     three.setOnClickListener(new View.OnClickListener() {
                         @Override
