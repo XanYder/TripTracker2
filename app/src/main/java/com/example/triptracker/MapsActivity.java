@@ -76,25 +76,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
             String lines;
-            int count = 1;
-            int counter = 0;
             String itemName = "";
             String date = "";
             String description = "";
-            String location;
-            while ((lines = bufferedReader.readLine()) != null){
-                if (count == 1){
-                    itemName = lines;
-                    count += 1;
-                }
-                else if (count == 2) {
-                    date = lines;
-                    count += 1;
-                } else if (count == 3) {
-                    description = lines;
-                    count += 1;
-                } else if (count == 4) {
-                    location = lines;
+            String location = "";
+            ArrayList<String> images = new ArrayList<String>();
+            ArrayList<String> videos = new ArrayList<String>();
+            ArrayList<String> imageURI = new ArrayList<String>();
+            ArrayList<String> videosURI = new ArrayList<String>();
+            Integer counter = 0;
+
+            while ((lines = bufferedReader.readLine()) != null) {
+                String identify = lines.substring(0, 4);
+
+                if (identify.equals("titl")) {
+                    if (itemName.equals("") == false) {
+                        memories.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location, images, videos, imageURI, videosURI));
+                    }
+                    itemName = "";
+                    date = "";
+                    description = "";
+                    location = "";
+                    itemName = lines.substring(5);
+                    images = new ArrayList<String>();
+                    videos = new ArrayList<String>();
+                    imageURI = new ArrayList<String>();
+                    videosURI = new ArrayList<String>();
+                } else if (identify.equals("date")) {
+                    date = lines.substring(4);
+                } else if (identify.equals("desc")) {
+                    description = lines.substring(6);
+                } else if (identify.equals("loca")) {
+                    location = lines.substring(3);
                     Geocoder gc = new Geocoder(this, Locale.getDefault());
                     if (Geocoder.isPresent()) {
                         List<Address> list = gc.getFromLocationName(location, 1);
@@ -105,15 +118,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 .position(new LatLng(lat, lng))
                                 .title(itemName)));
                         marker.setTag(counter);
+                        counter++;
                         //Toast.makeText(this, String.valueOf(marker.getPosition()), Toast.LENGTH_SHORT).show();
                     }
-
-                    memories.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location));
-                    count = 1;
-                    counter++;
+                } else if (identify.equals("vidu")) {
+                    videosURI.add(lines.substring(6));
+                } else if (identify.equals("impa")) {
+                    images.add(lines.substring(6));
                 }
 
-            }
+                }
 
 
         }catch (IOException e){

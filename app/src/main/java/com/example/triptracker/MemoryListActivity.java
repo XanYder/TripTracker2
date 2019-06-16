@@ -16,8 +16,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class MemoryListActivity extends AppCompatActivity {
+    public Integer amount = 0;
 
-    public ArrayList<ExampleItem> createMemories(){
+    public ArrayList<ExampleItem> createMemoryList() {
         ArrayList<ExampleItem> exampleList = new ArrayList<>();
         try {
             FileInputStream fis = openFileInput("memories.txt");
@@ -25,34 +26,50 @@ public class MemoryListActivity extends AppCompatActivity {
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
             String lines;
-
-            int count = 1;
             String itemName = "";
             String date = "";
             String description = "";
-            String location;
-            while ((lines = bufferedReader.readLine()) != null){
-                if (count == 1) {
-                    itemName = lines;
-                    count += 1;
-                } else if (count == 2) {
-                    date = lines;
-                    count += 1;
-                } else if (count == 3) {
-                    description = lines;
-                    count += 1;
-                } else if (count == 4) {
-                    location = lines;
-                    //Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
+            String location = "";
+            ArrayList<String> images = new ArrayList<String>();
+            ArrayList<String> videos = new ArrayList<String>();
+            ArrayList<String> imageURI = new ArrayList<String>();
+            ArrayList<String> videosURI = new ArrayList<String>();
 
-                    exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location));
-                    count = 1;
+            while ((lines = bufferedReader.readLine()) != null) {
+                String identify = lines.substring(0, 4);
+
+                if (identify.equals("titl")) {
+                    if (itemName.equals("") == false) {
+                        exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location, images, videos, imageURI, videosURI));
+                    }
+                    itemName = "";
+                    date = "";
+                    description = "";
+                    location = "";
+                    itemName = lines.substring(5);
+                    images = new ArrayList<String>();
+                    videos = new ArrayList<String>();
+                    imageURI = new ArrayList<String>();
+                    videosURI = new ArrayList<String>();
+                    amount += 1;
+                } else if (identify.equals("date")) {
+                    date = lines.substring(4);
+                } else if (identify.equals("desc")) {
+                    description = lines.substring(6);
+                } else if (identify.equals("loca")) {
+                    location = lines.substring(3);
+                } else if (identify.equals("vidu")) {
+                    videosURI.add(lines.substring(6));
+                } else if (identify.equals("impa")) {
+                    images.add(lines.substring(6));
                 }
 
+
             }
+            exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location, images, videos, imageURI, videosURI));
             return exampleList;
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -71,12 +88,10 @@ public class MemoryListActivity extends AppCompatActivity {
         homeButton();
         mapButton();
 
-        final ArrayList<ExampleItem> exampleList = createMemories();
+        final ArrayList<ExampleItem> exampleList = createMemoryList();
 
 
-
-
-        if (createMemories() != null){
+        if (createMemoryList() != null) {
 
             //int listSize = exampleList.size();
 

@@ -1,6 +1,7 @@
 package com.example.triptracker;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,6 +31,8 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +79,18 @@ public class CameraActivity extends AppCompatActivity {
         startActivityForResult(intent, 2);
     }
 
+    public void setTextinFile(String text) {
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput("memories.txt", Context.MODE_APPEND);
+            outputStream.write(text.getBytes());
+            outputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -313,6 +328,7 @@ public class CameraActivity extends AppCompatActivity {
                 allImages.add(fake);
                 ImageAdapter adapter = new ImageAdapter(this, allImages, allVideos);
                 viewPager.setAdapter(adapter);
+                setTextinFile("impath" + imageStoragePath + "\n");
 
             } else if (resultCode == RESULT_CANCELED) {
                 // user cancelled Image capture
@@ -338,6 +354,7 @@ public class CameraActivity extends AppCompatActivity {
                 allVideos.add(fake);
                 ImageAdapter adapter = new ImageAdapter(this, allImages, allVideos);
                 viewPager.setAdapter(adapter);
+                setTextinFile("vipath" + imageStoragePath + "\n");
 
             } else if (resultCode == RESULT_CANCELED) {
                 // user cancelled recording
@@ -359,6 +376,8 @@ public class CameraActivity extends AppCompatActivity {
             allImages.add(fake);
             ImageAdapter adapter = new ImageAdapter(this, allImages, allVideos);
             viewPager.setAdapter(adapter);
+            setTextinFile("imuri" + data.getData().toString() + "\n");
+
 
 
         } else if (requestCode == 2 && resultCode == RESULT_OK) {
@@ -369,6 +388,7 @@ public class CameraActivity extends AppCompatActivity {
             allVideos.add(fake);
             ImageAdapter adapter = new ImageAdapter(this, allImages, allVideos);
             viewPager.setAdapter(adapter);
+            setTextinFile("viduri" + data.getData().toString() + "\n");
         }
     }
 

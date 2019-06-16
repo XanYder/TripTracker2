@@ -26,11 +26,10 @@ import com.google.android.libraries.places.api.Places;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
-import android .location.Location;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -115,11 +114,25 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
 
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         final TextView autoDate = findViewById(R.id.auto_date);
         String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         autoDate.setText(date);
+
+
+        Button cameraButton = findViewById(R.id.cameraButton);
+        cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextInputEditText title = findViewById(R.id.theTitle);
+                String text = title.getText().toString();
+                setTextinFile("title" + text + "\n");
+                startActivity(new Intent(Main2Activity.this, CameraActivity.class));
+
+            }
+        });
 
         final Switch dateSwitch = findViewById(R.id.date_switch);
         dateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -142,13 +155,12 @@ public class Main2Activity extends AppCompatActivity {
         createMemory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextInputEditText title = findViewById(R.id.title);
+                TextInputEditText title = findViewById(R.id.theTitle);
                 String text = title.getText().toString();
                 TextInputEditText location = findViewById(R.id.location);
                 //Button test = findViewById(R.id.cameraButton);
                 if (!TextUtils.isEmpty(location.getText()) && !TextUtils.isEmpty(title.getText()) && !geoLocate().equals("No")) {
 
-                    setTextinFile("title" + text + "\n");
 
                     Switch dateSwitch = findViewById(R.id.date_switch);
                     if (dateSwitch.isChecked()) {
@@ -184,7 +196,6 @@ public class Main2Activity extends AppCompatActivity {
         });
         mapButton();
         homeButton();
-        cameraButton();
         init();
     }
 
@@ -230,14 +241,5 @@ public class Main2Activity extends AppCompatActivity {
 
     }
 
-    private void cameraButton() {
-        Button cameraButton = findViewById(R.id.cameraButton);
-        cameraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Main2Activity.this, CameraActivity.class));
-            }
-        });
 
-    }
 }

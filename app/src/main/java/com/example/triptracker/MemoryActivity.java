@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MemoryActivity extends AppCompatActivity {
 
@@ -16,7 +15,7 @@ public class MemoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory);
 
-        TextView title = findViewById(R.id.title);
+        TextView title = findViewById(R.id.theTitle);
         title.setText(getIntent().getStringExtra("title"));
 
         TextView description = findViewById(R.id.description);

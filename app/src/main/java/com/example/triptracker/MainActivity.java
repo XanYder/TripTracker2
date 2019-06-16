@@ -1,6 +1,9 @@
 package com.example.triptracker;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -35,24 +38,21 @@ public class MainActivity extends AppCompatActivity {
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
             String lines;
-            int count = 1;
             while ((lines = bufferedReader.readLine()) != null){
+                String identify = lines.substring(0, 4);
+                Log.d("identify", identify);
+                if (identify.equals("titl")) {
 
-                if (count == 1) {
-                    memNames.add(lines);
-                    Log.d("lines", String.valueOf(memories));
+                    memNames.add(lines.substring(5));
                     memories += 1;
-                    count += 1;
-                } else if (count == 2) {
-                    count += 1;
-                } else if (count > 3) {
-                    count = 1;
-                } else {
-                    count += 1;
                 }
             }
             Collections.reverse(memNames);
-            return String.valueOf(memNames.get(index));
+            try {
+                return String.valueOf(memNames.get(index));
+            } catch (Exception e) {
+                return "Nothing";
+            }
 
         } catch (IOException e){
             e.printStackTrace();
@@ -71,30 +71,48 @@ public class MainActivity extends AppCompatActivity {
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
             String lines;
-            int count = 1;
             String itemName = "";
             String date = "";
             String description = "";
-            String location;
+            String location = "";
+            ArrayList<String> images = new ArrayList<String>();
+            ArrayList<String> videos = new ArrayList<String>();
+            ArrayList<String> imageURI = new ArrayList<String>();
+            ArrayList<String> videosURI = new ArrayList<String>();
 
             while ((lines = bufferedReader.readLine()) != null) {
-                if (count == 1) {
-                    itemName = lines;
-                    count += 1;
+                String identify = lines.substring(0, 4);
+
+                if (identify.equals("titl")) {
+                    if (itemName.equals("") == false) {
+                        exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location, images, videos, imageURI, videosURI));
+                    }
+                    itemName = "";
+                    date = "";
+                    description = "";
+                    location = "";
+                    images = new ArrayList<String>();
+                    videos = new ArrayList<String>();
+                    imageURI = new ArrayList<String>();
+                    videosURI = new ArrayList<String>();
                     amount += 1;
 
-                } else if (count == 2) {
-                    date = lines;
-                    count += 1;
-                } else if (count == 3) {
-                    description = lines;
-                    count += 1;
-                } else if (count == 4) {
-                    location = lines;
-                    exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location));
-                    count = 1;
+                    itemName = lines.substring(5);
+                } else if (identify.equals("date")) {
+                    date = lines.substring(4);
+                } else if (identify.equals("desc")) {
+                    description = lines.substring(6);
+                } else if (identify.equals("loca")) {
+                    location = lines.substring(3);
+                } else if (identify.equals("vidu")) {
+                    videosURI.add(lines.substring(6));
+                } else if (identify.equals("impa")) {
+                    images.add(lines.substring(6));
                 }
+
+
             }
+            exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location, images, videos, imageURI, videosURI));
             return exampleList;
 
         } catch (IOException e) {
@@ -114,6 +132,8 @@ public class MainActivity extends AppCompatActivity {
         TextView memory3 = findViewById(R.id.memory3);
 
         getTextFromFile(0);
+
+
         //.makeText(this, String.valueOf(amount), Toast.LENGTH_SHORT).show();
 
         TextView[] memoryArray = {memory1,memory2,memory3};
@@ -123,6 +143,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (amount > 0) {
+            ImageView memoryPic1 = findViewById(R.id.imageView3);
+
+            Bitmap bmImg = BitmapFactory.decodeFile(exampleList.get(0).getmImages().get(0));
+            memoryPic1.setImageBitmap(bmImg);
             final int click1 = exampleList.size() - 1;
             //Toast.makeText(this, String.valueOf(exampleList.size()), Toast.LENGTH_SHORT).show();
             ImageView one = findViewById(R.id.imageView3);
