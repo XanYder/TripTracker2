@@ -5,15 +5,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,6 +30,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CameraActivity extends AppCompatActivity {
@@ -58,12 +61,19 @@ public class CameraActivity extends AppCompatActivity {
     private ImageView imgPreview;
     private VideoView videoPreview;
     private Button btnCapturePicture, btnRecordVideo;
-
+    private ArrayList<ImageView> allImages = new ArrayList<ImageView>();
+    private ArrayList<VideoView> allVideos = new ArrayList<VideoView>();
 
     private void pickImageFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, 1234);
+    }
+
+    private void pickVideoFromGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("video/*");
+        startActivityForResult(intent, 2);
     }
 
     @Override
@@ -72,6 +82,8 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ViewPager viewPager = findViewById(R.id.imageSlider);
+
 
         // Checking availability of the camera
         if (!CameraUtils.isDeviceSupportCamera(getApplicationContext())) {
@@ -82,9 +94,7 @@ public class CameraActivity extends AppCompatActivity {
             finish();
         }
 
-        txtDescription = findViewById(R.id.txt_desc);
-        imgPreview = findViewById(R.id.imgPreview);
-        videoPreview = findViewById(R.id.videoPreview);
+
         btnCapturePicture = findViewById(R.id.btnCapturePicture);
         btnRecordVideo = findViewById(R.id.btnRecordVideo);
 
@@ -119,9 +129,8 @@ public class CameraActivity extends AppCompatActivity {
         });
 
 
-
-        Button button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button loadAImage = findViewById(R.id.loadImage);
+        loadAImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
@@ -129,6 +138,10 @@ public class CameraActivity extends AppCompatActivity {
                         == PackageManager.PERMISSION_DENIED){
                         String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
                         requestPermissions(permissions, 1);
+                        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                                == PackageManager.PERMISSION_GRANTED) {
+                            pickImageFromGallery();
+                        }
                     }
                     else{
                         pickImageFromGallery();
@@ -140,12 +153,31 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
 
+        Button button2 = findViewById(R.id.loadVideo);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                            == PackageManager.PERMISSION_DENIED) {
+                        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                        requestPermissions(permissions, 1);
+                        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                                == PackageManager.PERMISSION_GRANTED) {
+                            pickVideoFromGallery();
+                        }
+                    } else {
+                        pickVideoFromGallery();
+                    }
+                } else {
+                    pickVideoFromGallery();
+                }
+
+            }
+        });
 
 
 
-        // restoring storage image path from saved instance state
-        // otherwise the path will be null on device rotation
-        restoreFromBundle(savedInstanceState);
 
 
     }
@@ -180,22 +212,7 @@ public class CameraActivity extends AppCompatActivity {
 
 
     /**
-     * Restoring store image path from saved instance state
-     */
-    private void restoreFromBundle(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            if (savedInstanceState.containsKey(KEY_IMAGE_STORAGE_PATH)) {
-                imageStoragePath = savedInstanceState.getString(KEY_IMAGE_STORAGE_PATH);
-                if (!TextUtils.isEmpty(imageStoragePath)) {
-                    if (imageStoragePath.substring(imageStoragePath.lastIndexOf(".")).equals("." + IMAGE_EXTENSION)) {
-                        previewCapturedImage();
-                    } else if (imageStoragePath.substring(imageStoragePath.lastIndexOf(".")).equals("." + VIDEO_EXTENSION)) {
-                        previewVideo();
-                    }
-                }
-            }
-        }
-    }
+
 
     /**
      * Requesting permissions using Dexter library
@@ -249,32 +266,6 @@ public class CameraActivity extends AppCompatActivity {
         startActivityForResult(intent, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
     }
 
-    /**
-     * Saving stored image path to saved instance state
-     */
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        // save file url in bundle as it will be null on screen orientation
-        // changes
-        outState.putString(KEY_IMAGE_STORAGE_PATH, imageStoragePath);
-    }
-
-    /**
-     * Restoring image path from saved instance state
-     */
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        // get the file url
-        imageStoragePath = savedInstanceState.getString(KEY_IMAGE_STORAGE_PATH);
-    }
-
-    /**
-     * Launching camera app to record video
-     */
     private void captureVideo() {
         Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
 
@@ -306,9 +297,15 @@ public class CameraActivity extends AppCompatActivity {
                 // Refreshing the gallery
                 CameraUtils.refreshGallery(getApplicationContext(), imageStoragePath);
 
-                // successfully captured the image
-                // display it in image view
-                previewCapturedImage();
+                ViewPager viewPager = findViewById(R.id.imageSlider);
+                ImageView fake = new ImageView(this);
+                Bitmap bmImg = BitmapFactory.decodeFile(imageStoragePath);
+
+                fake.setImageBitmap(bmImg);
+                allImages.add(fake);
+                ImageAdapter adapter = new ImageAdapter(this, allImages, allVideos);
+                viewPager.setAdapter(adapter);
+
             } else if (resultCode == RESULT_CANCELED) {
                 // user cancelled Image capture
                 Toast.makeText(getApplicationContext(),
@@ -327,7 +324,13 @@ public class CameraActivity extends AppCompatActivity {
 
                 // video successfully recorded
                 // preview the recorded video
-                previewVideo();
+                ViewPager viewPager = findViewById(R.id.imageSlider);
+                VideoView fake = new VideoView(this);
+                fake.setVideoPath(imageStoragePath);
+                allVideos.add(fake);
+                ImageAdapter adapter = new ImageAdapter(this, allImages, allVideos);
+                viewPager.setAdapter(adapter);
+
             } else if (resultCode == RESULT_CANCELED) {
                 // user cancelled recording
                 Toast.makeText(getApplicationContext(),
@@ -340,50 +343,29 @@ public class CameraActivity extends AppCompatActivity {
                         .show();
             }
         } else if (requestCode == 1234 && resultCode == RESULT_OK){
-            imgPreview.setVisibility(View.VISIBLE);
-            txtDescription.setVisibility(View.GONE);
-            imgPreview.setImageURI(data.getData());
 
+            ViewPager viewPager = findViewById(R.id.imageSlider);
+            ImageView fake = new ImageView(this);
+            fake.setImageURI(data.getData());
+
+            allImages.add(fake);
+            ImageAdapter adapter = new ImageAdapter(this, allImages, allVideos);
+            viewPager.setAdapter(adapter);
+
+
+        } else if (requestCode == 2 && resultCode == RESULT_OK) {
+            ViewPager viewPager = findViewById(R.id.imageSlider);
+            VideoView fake = new VideoView(this);
+            fake.setVideoURI(data.getData());
+
+            allVideos.add(fake);
+            ImageAdapter adapter = new ImageAdapter(this, allImages, allVideos);
+            viewPager.setAdapter(adapter);
         }
     }
 
-    /**
-     * Display image from gallery
-     */
-    private void previewCapturedImage() {
-        try {
-            // hide video preview
-            txtDescription.setVisibility(View.GONE);
-            videoPreview.setVisibility(View.GONE);
 
-            imgPreview.setVisibility(View.VISIBLE);
 
-            Bitmap bitmap = CameraUtils.optimizeBitmap(BITMAP_SAMPLE_SIZE, imageStoragePath);
-
-            imgPreview.setImageBitmap(bitmap);
-
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Displaying video in VideoView
-     */
-    private void previewVideo() {
-        try {
-            // hide image preview
-            txtDescription.setVisibility(View.GONE);
-            imgPreview.setVisibility(View.GONE);
-
-            videoPreview.setVisibility(View.VISIBLE);
-            videoPreview.setVideoPath(imageStoragePath);
-            // start playing
-            videoPreview.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Alert dialog to navigate to app settings

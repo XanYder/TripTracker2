@@ -11,43 +11,41 @@
     tools:showIn="@layout/activity_camera">
 
     <LinearLayout
+        android:layout_width="387dp"
+        android:layout_height="173dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/loadImage"
+            android:layout_width="192dp"
+            android:layout_height="match_parent"
+            android:text="Load Image from Gallery" />
+
+        <Button
+            android:id="@+id/loadVideo"
+            android:layout_width="189dp"
+            android:layout_height="62dp"
+            android:text="Load Video from Gallery" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/activity_margin"
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="clicked"
-            android:text="Button" />
-
-        <TextView
-            android:id="@+id/txt_desc"
+        <android.support.v4.view.ViewPager
+            android:id="@+id/imageSlider"
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="@string/preview_description"
-            android:textSize="15dp" />
+            android:layout_height="fill_parent"
+            tools:visibility="visible"></android.support.v4.view.ViewPager>
 
         <!-- To display picture taken -->
-        <ImageView
-            android:id="@+id/imgPreview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:visibility="gone" />
 
         <!-- To preview video recorded -->
-        <VideoView
-            android:id="@+id/videoPreview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout
@@ -57,6 +55,7 @@
         android:weightSum="2">
 
         <!-- Capture picture button -->
+
         <Button
             android:id="@+id/btnCapturePicture"
             android:layout_width="0dp"
