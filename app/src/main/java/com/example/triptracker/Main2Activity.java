@@ -97,8 +97,7 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Places.initialize(getApplicationContext(), apiKey);
-
-        PlacesClient placesClient = Places.createClient(this);
+        //PlacesClient placesClient = Places.createClient(this);
         final Geocoder geocoder = new Geocoder(Main2Activity.this);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
@@ -108,9 +107,7 @@ public class Main2Activity extends AppCompatActivity {
                 try {
                     List<Address> current = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                     Address address = current.get(0);
-                    Toast.makeText(Main2Activity.this, (address.getAddressLine(0)),
-                            Toast.LENGTH_LONG).show();
-                    EditText mSearchText = findViewById(R.id.location);
+                    mSearchText = findViewById(R.id.location);
                     mSearchText.setText(address.getAddressLine(0));
                 } catch (IOException e) {
                     e.printStackTrace();
