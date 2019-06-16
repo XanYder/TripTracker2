@@ -69,7 +69,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //createMemory();
         mMap = map;
         //Move the camera
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HRO, 10));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HRO, 5));
         // Add some markers to the map, and add a data object to each marker.
         try {
             FileInputStream fis = openFileInput("memories.txt");
@@ -132,12 +132,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-
+    @Override
+    public void onRequestPermissionsResult(int REQUEST_ACCESS_FINE_LOCATION, String[] permissions, int[] grantResults) {
+        if (REQUEST_ACCESS_FINE_LOCATION == REQUEST_ACCESS_FINE_LOCATION) {
+            //received permission result for location permission
+            //check if only the required permission has been granted
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Permission was not granted", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
         // Retrieve the data from the marker.
-        Integer id = (Integer) marker.getTag();
+        int id = (int) marker.getTag();
 
         Intent intent = new Intent(this, MemoryActivity.class);
         intent.putExtra("title", String.valueOf(memories.get(id).getText1()));

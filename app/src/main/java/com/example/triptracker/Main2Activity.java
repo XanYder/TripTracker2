@@ -1,13 +1,16 @@
 package com.example.triptracker;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Location;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,12 +24,15 @@ import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.libraries.places.api.Places;
 //import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
-import android .location.Location;
+
+import android.location.Location;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -37,7 +43,7 @@ import java.util.Locale;
 
 public class Main2Activity extends AppCompatActivity {
 
-    public void setTextinFile(String text){
+    public void setTextinFile(String text) {
         FileOutputStream outputStream;
 
         try {
@@ -45,17 +51,19 @@ public class Main2Activity extends AppCompatActivity {
             outputStream.write(text.getBytes());
             outputStream.close();
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     public String apiKey = "AIzaSyD5pLtC8lv397OU31Tas86utbmeQAl1jl8";
+    private static final int REQUEST_ACCESS_FINE_LOCATION = 0;
     private FusedLocationProviderClient fusedLocationClient;
     private EditText mSearchText;
     public Address address;
     private static final String TAG = "MyActivity";
 
-    private void init(){
+    private void init() {
         Log.d(TAG, "init: initializing");
         EditText location = findViewById(R.id.location);
         location.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -66,12 +74,11 @@ public class Main2Activity extends AppCompatActivity {
                         || keyEvent.getAction() == KeyEvent.ACTION_DOWN
                         || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER) {
                     //execute our method for searching
-                    if (!geoLocate().equals("No")){
+                    if (!geoLocate().equals("No")) {
                         EditText location = findViewById(R.id.location);
                         location.setText(geoLocate());
-                    }
-                    else{
-                        Toast.makeText(Main2Activity.this,"Could not find that adress, please try again.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(Main2Activity.this, "Could not find that adress, please try again.", Toast.LENGTH_LONG).show();
                     }
                 }
                 return false;
@@ -81,13 +88,12 @@ public class Main2Activity extends AppCompatActivity {
         location.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus){
-                    if (!geoLocate().equals("No")){
+                if (!hasFocus) {
+                    if (!geoLocate().equals("No")) {
                         EditText location = findViewById(R.id.location);
                         location.setText(geoLocate());
-                    }
-                    else{
-                        Toast.makeText(Main2Activity.this,"Could not find that adress, please try again.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(Main2Activity.this, "Could not find that adress, please try again.", Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -96,10 +102,13 @@ public class Main2Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Places.initialize(getApplicationContext(), apiKey);
+        //Places.initialize(getApplicationContext(), apiKey);
         //PlacesClient placesClient = Places.createClient(this);
         final Geocoder geocoder = new Geocoder(Main2Activity.this);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_ACCESS_FINE_LOCATION);
+        }
         fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {

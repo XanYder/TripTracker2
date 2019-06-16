@@ -28,7 +28,8 @@ public class MemoryActivity extends AppCompatActivity {
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MemoryActivity.this, MapsActivity.class));
+                Intent intent = new Intent(MemoryActivity.this, MemoryActivity.class);
+                startActivity(intent);
             }
         });
 
