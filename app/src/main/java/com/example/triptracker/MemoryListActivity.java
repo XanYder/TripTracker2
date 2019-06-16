@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -16,8 +16,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class MemoryListActivity extends AppCompatActivity {
-
-
 
     public ArrayList<ExampleItem> createMemories(){
         ArrayList<ExampleItem> exampleList = new ArrayList<>();
@@ -45,7 +43,7 @@ public class MemoryListActivity extends AppCompatActivity {
                     count += 1;
                 } else if (count == 4) {
                     location = lines;
-                    Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
 
                     exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location));
                     count = 1;
@@ -61,16 +59,15 @@ public class MemoryListActivity extends AppCompatActivity {
         return null;
     }
 
-
     private RecyclerView mRecycleView;
     private ExampleAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memorylist);
+        createButton();
         homeButton();
         mapButton();
 
@@ -81,7 +78,7 @@ public class MemoryListActivity extends AppCompatActivity {
 
         if (createMemories() != null){
 
-            int listSize = exampleList.size();
+            //int listSize = exampleList.size();
 
 
 
