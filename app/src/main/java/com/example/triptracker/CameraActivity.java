@@ -38,6 +38,7 @@ import java.util.List;
 
 public class CameraActivity extends AppCompatActivity {
 
+
     // Activity request codes
     private static final int CAMERA_CAPTURE_IMAGE_REQUEST_CODE = 100;
     private static final int CAMERA_CAPTURE_VIDEO_REQUEST_CODE = 200;
