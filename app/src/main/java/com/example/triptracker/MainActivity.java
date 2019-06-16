@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     int memories = 0;
 
     public String getTextFromFile(int index){
-        List memNames = new ArrayList();
+        List<String> memNames = new ArrayList<>();
         memories = 0;
         try {
             FileInputStream fis = openFileInput("memories.txt");
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             String itemName = "";
             String date = "";
             String description = "";
-            String location = "";
+            String location;
 
             while ((lines = bufferedReader.readLine()) != null) {
                 if (count == 1) {
@@ -104,9 +104,6 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         TextView memory3 = findViewById(R.id.memory3);
 
         getTextFromFile(0);
-        Toast.makeText(this, String.valueOf(amount), Toast.LENGTH_SHORT).show();
+        //.makeText(this, String.valueOf(amount), Toast.LENGTH_SHORT).show();
 
         TextView[] memoryArray = {memory1,memory2,memory3};
 

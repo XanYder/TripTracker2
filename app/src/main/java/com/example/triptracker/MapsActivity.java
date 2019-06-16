@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+//import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -33,15 +33,9 @@ import java.util.Locale;
 //import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 //import android.support.v4.content.ContextCompat;
 
-
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private static final int REQUEST_ACCESS_FINE_LOCATION = 0;
-    /*private static final LatLng PERTH = new LatLng(-31.952854, 115.857342);
-    private static final LatLng SYDNEY = new LatLng(-33.87365, 151.20689);
-    private static final Location SYDNEY = new Location("Sydney");/*
-    private static final LatLng BRISBANE = new LatLng(-27.47093, 153.0235);
-    private static final LatLng MELBOURNE = new LatLng(-37.813, 144.962);*/
     private static final LatLng HRO = new LatLng(51.91732977623568,4.4843445754744655);
 
     public ArrayList<ExampleItem> memories = new ArrayList<>();
@@ -53,11 +47,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
     }
-
 
     /**
      * Manipulates the map once available.
@@ -72,10 +65,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap map) {
         createButton();
         homeButton();
-        createMemory();
+        //createMemory();
         mMap = map;
         //Move the camera
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(HRO));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HRO, 10));
         // Add some markers to the map, and add a data object to each marker.
         try{
             FileInputStream fis = openFileInput("memories.txt");
@@ -103,7 +96,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 } else if (count == 4) {
                     location = lines;
                     Geocoder gc = new Geocoder(this, Locale.getDefault());
-                    if (gc.isPresent()) {
+                    if (Geocoder.isPresent()) {
                         List<Address> list = gc.getFromLocationName(location, 1);
                         Address address = list.get(0);
                         double lat = address.getLatitude();
@@ -112,7 +105,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 .position(new LatLng(lat, lng))
                                 .title(itemName)));
                         marker.setTag(counter);
-                        Toast.makeText(this, String.valueOf(marker.getPosition()), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(this, String.valueOf(marker.getPosition()), Toast.LENGTH_SHORT).show();
                     }
 
                     memories.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location));
@@ -126,7 +119,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }catch (IOException e){
             e.printStackTrace();
         }
-
         // Set a listener for marker click.
         mMap.setOnMarkerClickListener(this);
         // Check whether this app could get location
@@ -145,7 +137,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     }
-
 
     @Override
     public void onRequestPermissionsResult(int REQUEST_ACCESS_FINE_LOCATION, String[] permissions, int[] grantResults){
@@ -173,7 +164,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         intent.putExtra("location", String.valueOf(memories.get(id).getLocation()));
         startActivity(intent);
 
-
         // Return false to indicate that we have not consumed the event and that we wish
         // for the default behavior to occur (which is for the camera to move such that the
         // marker is centered and for the marker's info window to open, if it has one).
@@ -200,15 +190,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-    }
-
-    private void createMemory() {
-        Button listButton = findViewById(R.id.create_memory);
-        listButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MapsActivity.this, Main2Activity.class));
-            }
-        });
     }
 }
