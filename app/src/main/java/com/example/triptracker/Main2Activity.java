@@ -149,21 +149,21 @@ public class Main2Activity extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(location.getText()) != true && TextUtils.isEmpty(title.getText()) != true && geoLocate() != "No") {
 
-                    setTextinFile(text + "\n");
+                    setTextinFile("title" + text + "\n");
 
                     Switch dateSwitch = findViewById(R.id.date_switch);
                     if (dateSwitch.isChecked()) {
                         String text2 = autoDate.getText().toString();
-                        setTextinFile(text2 + "\n");
+                        setTextinFile("date" + text2 + "\n");
                     } else {
                         TextInputEditText date = findViewById(R.id.custom_date_text);
                         String text2 = date.getText().toString();
-                        setTextinFile(text2 + "\n");
+                        setTextinFile("date" + text2 + "\n");
                     }
 
                     EditText description = findViewById(R.id.description);
-                    setTextinFile(description.getText().toString() + "\n");
-                    setTextinFile(location.getText().toString() + "\n");
+                    setTextinFile("description" + description.getText().toString() + "\n");
+                    setTextinFile("location" + location.getText().toString() + "\n");
 
 
                     Intent intent = new Intent(Main2Activity.this, MainActivity.class);

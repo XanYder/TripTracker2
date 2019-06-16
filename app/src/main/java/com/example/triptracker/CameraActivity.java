@@ -153,6 +153,14 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
 
+        Button mDone = findViewById(R.id.done);
+        mDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         Button button2 = findViewById(R.id.loadVideo);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
