@@ -24,7 +24,13 @@ public class MemoryActivity extends AppCompatActivity {
         TextView location = findViewById(R.id.location);
         location.setText(getIntent().getStringExtra("location"));
         //Toast.makeText(this, String.valueOf(getIntent().getStringExtra("location")), Toast.LENGTH_SHORT).show();
-
+        location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MemoryActivity.this, MemoryActivity.class);
+                startActivity(intent);
+            }
+        });
 
         ImageView button = findViewById(R.id.cameraButton);
         button.setOnClickListener(new View.OnClickListener() {

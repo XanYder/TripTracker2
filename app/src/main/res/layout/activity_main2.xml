@@ -63,10 +63,10 @@
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch1" />
+        app:layout_constraintTop_toBottomOf="@+id/location_switch" />
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/location_switch"
         android:layout_width="53dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -88,7 +88,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/switch1"
+        app:layout_constraintStart_toEndOf="@+id/location_switch"
         app:layout_constraintTop_toBottomOf="@+id/description"
         app:passwordToggleEnabled="false">
 

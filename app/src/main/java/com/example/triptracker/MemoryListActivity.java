@@ -115,11 +115,6 @@ public class MemoryListActivity extends AppCompatActivity {
                 }
             });
         }
-
-
-
-
-
     }
 
     private void homeButton() {

@@ -7,6 +7,7 @@ import android.location.Address;
 import android.location.Geocoder;
 //import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
@@ -36,7 +37,7 @@ import java.util.Locale;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private static final int REQUEST_ACCESS_FINE_LOCATION = 0;
-    private static final LatLng HRO = new LatLng(51.91732977623568,4.4843445754744655);
+    private static final LatLng HRO = new LatLng(51.91732977623568, 4.4843445754744655);
 
     public ArrayList<ExampleItem> memories = new ArrayList<>();
 
@@ -68,9 +69,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //createMemory();
         mMap = map;
         //Move the camera
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HRO, 10));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HRO, 5));
         // Add some markers to the map, and add a data object to each marker.
-        try{
+        try {
             FileInputStream fis = openFileInput("memories.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fis);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -130,38 +131,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
 
 
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         // Set a listener for marker click.
         mMap.setOnMarkerClickListener(this);
         // Check whether this app could get location
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-            /*
-             * Enables the My Location layer if the fine location permission has been granted.
-             */
-            mMap.setMyLocationEnabled(true);
-        }else{
-            //Permission has not been granted
-            if(shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)){
-                Toast.makeText(this, "Location Permission is needed in order to access and show your location", Toast.LENGTH_SHORT).show();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_ACCESS_FINE_LOCATION);
+            if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                Toast.makeText(this, "Location Permission is needed in order to access and show your location", Toast.LENGTH_LONG).show();
             }
+        }else {
+            mMap.setMyLocationEnabled(true);
         }
-        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_ACCESS_FINE_LOCATION);
-
-
     }
 
     @Override
-    public void onRequestPermissionsResult(int REQUEST_ACCESS_FINE_LOCATION, String[] permissions, int[] grantResults){
-        if (REQUEST_ACCESS_FINE_LOCATION == REQUEST_ACCESS_FINE_LOCATION){
+    public void onRequestPermissionsResult(int REQUEST_ACCESS_FINE_LOCATION, String[] permissions, int[] grantResults) {
+        if (REQUEST_ACCESS_FINE_LOCATION == REQUEST_ACCESS_FINE_LOCATION) {
             //received permission result for location permission
-
             //check if only the required permission has been granted
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                //Location permission has been granted, preview can be displayed
-                mMap.setMyLocationEnabled(true);
-            }else{
+            if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Permission was not granted", Toast.LENGTH_LONG).show();
             }
         }
@@ -170,7 +161,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public boolean onMarkerClick(final Marker marker) {
         // Retrieve the data from the marker.
-        Integer id = (Integer) marker.getTag();
+        int id = (int) marker.getTag();
 
         Intent intent = new Intent(this, MemoryActivity.class);
         intent.putExtra("title", String.valueOf(memories.get(id).getText1()));
