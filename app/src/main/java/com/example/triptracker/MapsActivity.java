@@ -37,7 +37,7 @@ import java.util.Locale;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private static final int REQUEST_ACCESS_FINE_LOCATION = 0;
-    private static final LatLng HRO = new LatLng(51.91732977623568, 4.4843445754744655);
+    private LatLng HRO = new LatLng(51.91732977623568, 4.4843445754744655);
 
     public ArrayList<ExampleItem> memories = new ArrayList<>();
 
@@ -70,7 +70,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = map;
         //Move the camera
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HRO, 5));
-        // Add some markers to the map, and add a data object to each marker.
+        if(getIntent().getStringExtra("location") != null) {
+            try {
+                Geocoder geode = new Geocoder(this, Locale.getDefault());
+                List<Address> list = geode.getFromLocationName(getIntent().getStringExtra("location"), 1);
+                Address link = list.get(0);
+                double lat = link.getLatitude();
+                double lng = link.getLongitude();
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 5));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         try {
             FileInputStream fis = openFileInput("memories.txt");
             InputStreamReader inputStreamReader = new InputStreamReader(fis);
@@ -81,54 +92,62 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             String date = "";
             String description = "";
             String location = "";
-            ArrayList<String> images = new ArrayList<String>();
-            ArrayList<String> videos = new ArrayList<String>();
-            ArrayList<String> imageURI = new ArrayList<String>();
-            ArrayList<String> videosURI = new ArrayList<String>();
+            ArrayList<String> images = new ArrayList<>();
+            ArrayList<String> videos = new ArrayList<>();
+            ArrayList<String> imageURI = new ArrayList<>();
+            ArrayList<String> videosURI = new ArrayList<>();
             Integer counter = 0;
 
             while ((lines = bufferedReader.readLine()) != null) {
                 String identify = lines.substring(0, 4);
 
-                if (identify.equals("titl")) {
-                    if (itemName.equals("") == false) {
-                        memories.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location, images, videos, imageURI, videosURI));
-                    }
-                    itemName = "";
-                    date = "";
-                    description = "";
-                    location = "";
-                    itemName = lines.substring(5);
-                    images = new ArrayList<String>();
-                    videos = new ArrayList<String>();
-                    imageURI = new ArrayList<String>();
-                    videosURI = new ArrayList<String>();
-                } else if (identify.equals("date")) {
-                    date = lines.substring(4);
-                } else if (identify.equals("desc")) {
-                    description = lines.substring(6);
-                } else if (identify.equals("loca")) {
-                    location = lines.substring(3);
-                    Geocoder gc = new Geocoder(this, Locale.getDefault());
-                    if (Geocoder.isPresent()) {
-                        List<Address> list = gc.getFromLocationName(location, 1);
-                        Address address = list.get(0);
-                        double lat = address.getLatitude();
-                        double lng = address.getLongitude();
-                        Marker marker = mMap.addMarker((new MarkerOptions()
-                                .position(new LatLng(lat, lng))
-                                .title(itemName)));
-                        marker.setTag(counter);
-                        counter++;
-                        //Toast.makeText(this, String.valueOf(marker.getPosition()), Toast.LENGTH_SHORT).show();
-                    }
-                } else if (identify.equals("vidu")) {
-                    videosURI.add(lines.substring(6));
-                } else if (identify.equals("impa")) {
-                    images.add(lines.substring(6));
+                switch (identify) {
+                    case "titl":
+                        if (!itemName.equals("")) {
+                            memories.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location, images, videos, imageURI, videosURI));
+                        }
+                        date = "";
+                        description = "";
+                        location = "";
+                        itemName = lines.substring(5);
+                        images = new ArrayList<>();
+                        videos = new ArrayList<>();
+                        imageURI = new ArrayList<>();
+                        videosURI = new ArrayList<>();
+                        break;
+                    case "date":
+                        date = lines.substring(4);
+                        break;
+                    case "desc":
+                        description = lines.substring(6);
+                        break;
+                    case "loca":
+                        location = lines.substring(3);
+                        Geocoder gc = new Geocoder(this, Locale.getDefault());
+                        if (Geocoder.isPresent()) {
+                            List<Address> list = gc.getFromLocationName(location, 1);
+                            Address address = list.get(0);
+                            double lat = address.getLatitude();
+                            double lng = address.getLongitude();
+                            Marker marker = mMap.addMarker((new MarkerOptions()
+                                    .position(new LatLng(lat, lng))
+                                    .title(itemName)));
+                            marker.setTag(counter);
+                            counter++;
+                            //Toast.makeText(this, String.valueOf(marker.getPosition()), Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case "vidu":
+                        videosURI.add(lines.substring(6));
+                        break;
+                    case "impa":
+                        images.add(lines.substring(6));
+                        break;
                 }
 
-                }
+            }
+            memories.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location, images, videos, imageURI, videosURI));
+            //return memories;
 
 
         } catch (IOException e) {

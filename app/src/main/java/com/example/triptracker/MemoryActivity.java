@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MemoryActivity extends AppCompatActivity {
 
@@ -21,13 +22,15 @@ public class MemoryActivity extends AppCompatActivity {
         TextView description = findViewById(R.id.description);
         description.setText(getIntent().getStringExtra("description"));
 
-        TextView location = findViewById(R.id.location);
+        final TextView location = findViewById(R.id.location);
         location.setText(getIntent().getStringExtra("location"));
         //Toast.makeText(this, String.valueOf(getIntent().getStringExtra("location")), Toast.LENGTH_SHORT).show();
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MemoryActivity.this, MemoryActivity.class);
+                Intent intent = new Intent(MemoryActivity.this, MapsActivity.class);
+                intent.putExtra("location", String.valueOf(location.getText()));
+                //Toast.makeText(MemoryActivity.this, String.valueOf(location.getText()), Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });
