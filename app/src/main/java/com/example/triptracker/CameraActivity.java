@@ -75,7 +75,7 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     private void pickVideoFromGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
         intent.setType("video/*");
         startActivityForResult(intent, 2);
     }
@@ -385,6 +385,8 @@ public class CameraActivity extends AppCompatActivity {
             ViewPager viewPager = findViewById(R.id.imageSlider);
             VideoView fake = new VideoView(this);
             fake.setVideoURI(data.getData());
+
+            Log.d("test", String.valueOf(data.getData()));
 
             allVideos.add(fake);
             ImageAdapter adapter = new ImageAdapter(this, allImages, allVideos);
