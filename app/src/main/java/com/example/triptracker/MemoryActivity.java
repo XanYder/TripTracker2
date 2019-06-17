@@ -6,25 +6,25 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
+//import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+//import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.MediaController;
+//import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.Toast;
+//import android.widget.Toast;
 import android.widget.VideoView;
 
 import java.util.ArrayList;
 
 public class MemoryActivity extends AppCompatActivity {
     private ArrayList<String> mImages, mVideos, mImagesURI, mVideosURI;
-    private ArrayList<ImageView> allImages = new ArrayList<ImageView>();
-    private ArrayList<VideoView> allVideos = new ArrayList<VideoView>();
+    private ArrayList<ImageView> allImages = new ArrayList<>();
+    private ArrayList<VideoView> allVideos = new ArrayList<>();
 
     private String getRealPathFromURI(Uri contentURI) {
         Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
@@ -51,13 +51,11 @@ public class MemoryActivity extends AppCompatActivity {
 
         final TextView location = findViewById(R.id.location);
         location.setText(getIntent().getStringExtra("location"));
-        //Toast.makeText(this, String.valueOf(getIntent().getStringExtra("location")), Toast.LENGTH_SHORT).show();
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MemoryActivity.this, MapsActivity.class);
                 intent.putExtra("location", String.valueOf(location.getText()));
-                //Toast.makeText(MemoryActivity.this, String.valueOf(location.getText()), Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });
@@ -111,16 +109,13 @@ public class MemoryActivity extends AppCompatActivity {
             allVideos.add(fake);
         }
 
-
         ImageAdapter adapter = new ImageAdapter(this, allImages, allVideos);
         viewPager.setAdapter(adapter);
-
 
         homeButton();
         mapButton();
         createButton();
         deleteButton();
-
     }
 
     private void homeButton() {
