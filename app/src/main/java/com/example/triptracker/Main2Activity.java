@@ -25,7 +25,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.libraries.places.api.Places;
+//import com.google.android.libraries.places.api.Places;
 //import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -56,7 +56,7 @@ public class Main2Activity extends AppCompatActivity {
         }
     }
 
-    public String apiKey = "AIzaSyD5pLtC8lv397OU31Tas86utbmeQAl1jl8";
+    //public String apiKey = "AIzaSyD5pLtC8lv397OU31Tas86utbmeQAl1jl8";
     private static final int REQUEST_ACCESS_FINE_LOCATION = 0;
     private FusedLocationProviderClient fusedLocationClient;
     private EditText mSearchText;
@@ -137,7 +137,7 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TextInputEditText title = findViewById(R.id.theTitle);
-                String text = title.getText().toString();
+                String text = String.valueOf(title.getText());
                 setTextinFile("title" + text + "\n");
                 addedTitle = true;
                 startActivity(new Intent(Main2Activity.this, CameraActivity.class));
@@ -177,12 +177,12 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 TextInputEditText title = findViewById(R.id.theTitle);
-                String text = title.getText().toString();
+                String text = String.valueOf(title.getText());
                 TextInputEditText location = findViewById(R.id.location);
                 //Button test = findViewById(R.id.cameraButton);
                 if (!TextUtils.isEmpty(location.getText()) && !TextUtils.isEmpty(title.getText()) && !geoLocate().equals("No")) {
 
-                    if (addedTitle == false) {
+                    if (!addedTitle) {
                         setTextinFile("title" + text + "\n");
                     }
                     Switch dateSwitch = findViewById(R.id.date_switch);
@@ -191,7 +191,7 @@ public class Main2Activity extends AppCompatActivity {
                         setTextinFile("date" + text2 + "\n");
                     } else {
                         TextInputEditText date = findViewById(R.id.custom_date_text);
-                        String text2 = date.getText().toString();
+                        String text2 = String.valueOf(date.getText());
                         setTextinFile("date" + text2 + "\n");
                     }
 

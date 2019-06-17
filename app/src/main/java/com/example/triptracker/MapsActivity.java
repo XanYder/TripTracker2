@@ -37,7 +37,6 @@ import java.util.Locale;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private static final int REQUEST_ACCESS_FINE_LOCATION = 0;
-    private LatLng HRO = new LatLng(51.91732977623568, 4.4843445754744655);
 
     public ArrayList<ExampleItem> memories = new ArrayList<>();
 
@@ -66,10 +65,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap map) {
         createButton();
         homeButton();
-        //createMemory();
         mMap = map;
         //Move the camera
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(HRO, 5));
         if(getIntent().getStringExtra("location") != null) {
             try {
                 Geocoder geode = new Geocoder(this, Locale.getDefault());
