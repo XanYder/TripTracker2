@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 //import android.widget.Toast;
@@ -35,8 +36,16 @@ public class MemoryListActivity extends AppCompatActivity {
             ArrayList<String> imageURI = new ArrayList<String>();
             ArrayList<String> videosURI = new ArrayList<String>();
 
-            while ((lines = bufferedReader.readLine()) != null) {
+            try {
+                lines = bufferedReader.readLine().replace("/", "//");
+                lines = lines.replace("////", "//");
+            } catch (Exception e) {
+                lines = null;
+            }
+            while (lines != null) {
+
                 String identify = lines.substring(0, 4);
+
 
                 if (identify.equals("titl")) {
                     if (itemName.equals("") == false) {
@@ -46,12 +55,13 @@ public class MemoryListActivity extends AppCompatActivity {
                     date = "";
                     description = "";
                     location = "";
-                    itemName = lines.substring(5);
                     images = new ArrayList<String>();
                     videos = new ArrayList<String>();
                     imageURI = new ArrayList<String>();
                     videosURI = new ArrayList<String>();
                     amount += 1;
+
+                    itemName = lines.substring(5);
                 } else if (identify.equals("date")) {
                     date = lines.substring(4);
                 } else if (identify.equals("desc")) {
@@ -62,6 +72,17 @@ public class MemoryListActivity extends AppCompatActivity {
                     videosURI.add(lines.substring(6));
                 } else if (identify.equals("impa")) {
                     images.add(lines.substring(6));
+                } else if (identify.equals("imur")) {
+                    imageURI.add(lines.substring(5));
+                } else if (identify.equals("vipa")) {
+                    videos.add(lines.substring(6));
+                }
+
+                try {
+                    lines = bufferedReader.readLine().replace("/", "//");
+                    lines = lines.replace("////", "//");
+                } catch (Exception e) {
+                    lines = null;
                 }
 
 
@@ -111,6 +132,11 @@ public class MemoryListActivity extends AppCompatActivity {
                     intent.putExtra("title", String.valueOf(exampleList.get(position).getText1()));
                     intent.putExtra("description", String.valueOf(exampleList.get(position).getDiscription()));
                     intent.putExtra("location", String.valueOf(exampleList.get(position).getLocation()));
+                    intent.putStringArrayListExtra("images", exampleList.get(position).getmImages());
+                    intent.putStringArrayListExtra("videos", exampleList.get(position).getmVideos());
+                    intent.putStringArrayListExtra("imagesURI", exampleList.get(position).getmImagesURI());
+                    intent.putStringArrayListExtra("videosURI", exampleList.get(position).getmVideosURI());
+
                     startActivity(intent);
                 }
             });

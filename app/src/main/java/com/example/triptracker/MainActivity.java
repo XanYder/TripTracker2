@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
             String lines;
             while ((lines = bufferedReader.readLine()) != null){
                 String identify = lines.substring(0, 4);
-                Log.d("identify", identify);
                 if (identify.equals("titl")) {
 
                     memNames.add(lines.substring(5));
@@ -90,8 +89,16 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<String> imageURI = new ArrayList<String>();
             ArrayList<String> videosURI = new ArrayList<String>();
 
-            while ((lines = bufferedReader.readLine()) != null) {
+            try {
+                lines = bufferedReader.readLine().replace("/", "//");
+                lines = lines.replace("////", "//");
+            } catch (Exception e) {
+                lines = null;
+            }
+            while (lines != null) {
+
                 String identify = lines.substring(0, 4);
+
 
                 if (identify.equals("titl")) {
                     if (itemName.equals("") == false) {
@@ -120,12 +127,21 @@ public class MainActivity extends AppCompatActivity {
                     images.add(lines.substring(6));
                 } else if (identify.equals("imur")) {
                     imageURI.add(lines.substring(5));
+                } else if (identify.equals("vipa")) {
+                    videos.add(lines.substring(6));
+                }
+
+                try {
+                    lines = bufferedReader.readLine().replace("/", "//");
+                    lines = lines.replace("////", "//");
+                } catch (Exception e) {
+                    lines = null;
                 }
 
 
             }
             exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location, images, videos, imageURI, videosURI));
-            return reverse(exampleList);
+            return exampleList;
 
         } catch (IOException e) {
             e.printStackTrace();

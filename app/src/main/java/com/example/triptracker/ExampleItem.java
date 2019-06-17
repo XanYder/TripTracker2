@@ -25,7 +25,7 @@ public class ExampleItem {
     }
 
     public String getDiscription() {
-        return mDescription.substring(5);
+        return mDescription;
     }
 
     public ArrayList<String> getmImages() {
@@ -45,7 +45,7 @@ public class ExampleItem {
     }
 
     public String getLocation() {
-        return mLocation.substring(5);
+        return mLocation;
     }
 
     public int getImageResource(){
