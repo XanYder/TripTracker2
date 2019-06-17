@@ -193,6 +193,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         intent.putStringArrayListExtra("videos", memories.get(id).getmVideos());
         intent.putStringArrayListExtra("imagesURI", memories.get(id).getmImagesURI());
         intent.putStringArrayListExtra("videosURI", memories.get(id).getmVideosURI());
+        intent.putExtra("date", memories.get(id).getmText2());
+
         startActivity(intent);
 
         // Return false to indicate that we have not consumed the event and that we wish
