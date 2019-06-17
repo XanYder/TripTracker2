@@ -211,9 +211,7 @@ public class Main2Activity extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteFile("memories.txt");
-                Intent intent = new Intent(Main2Activity.this, MainActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
         mapButton();
