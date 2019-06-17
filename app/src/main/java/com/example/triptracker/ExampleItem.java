@@ -25,7 +25,11 @@ public class ExampleItem {
     }
 
     public String getDiscription() {
-        return mDescription;
+        if (mDescription.equals("")) {
+            return mDescription;
+        } else {
+            return mDescription.substring(5);
+        }
     }
 
     public ArrayList<String> getmImages() {
@@ -45,7 +49,12 @@ public class ExampleItem {
     }
 
     public String getLocation() {
-        return mLocation;
+        if (mLocation.equals("")) {
+            return mLocation;
+        } else {
+            return mLocation.substring(5);
+        }
+
     }
 
     public int getImageResource(){
