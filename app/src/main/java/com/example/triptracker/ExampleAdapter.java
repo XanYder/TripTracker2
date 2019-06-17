@@ -1,5 +1,8 @@
 package com.example.triptracker;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -67,8 +70,18 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder exampleViewHolder, int i) {
         ExampleItem currentItem = mExampleList.get(i);
+        if (currentItem.getmImages().size() > 0) {
+            Bitmap bmImg = BitmapFactory.decodeFile(currentItem.getmImages().get(0));
+            exampleViewHolder.mImageView.setImageBitmap(bmImg);
+        } else if (currentItem.getmImagesURI().size() > 0) {
+            Uri myUri = Uri.parse(currentItem.getmImagesURI().get(0));
+            exampleViewHolder.mImageView.setImageURI(myUri);
 
-        exampleViewHolder.mImageView.setImageResource(currentItem.getImageResource());
+        } else {
+            exampleViewHolder.mImageView.setImageResource(R.drawable.circle);
+        }
+
+
         exampleViewHolder.mTextView1.setText(currentItem.getText1());
         exampleViewHolder.mTextView2.setText(currentItem.getText2());
     }

@@ -10,40 +10,31 @@
         android:layout_width="271dp"
         android:layout_height="97dp"
         android:layout_marginStart="68dp"
-        android:layout_marginTop="204dp"
+        android:layout_marginTop="300dp"
         android:text="TextView"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.027"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/description"
-        android:layout_width="367dp"
-        android:layout_height="367dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="44dp"
+        android:layout_width="357dp"
+        android:layout_height="238dp"
+        android:layout_marginStart="32dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/theTitle" />
 
-    <ImageView
-        android:id="@+id/cameraButton"
-        android:layout_width="66dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_share" />
+
 
     <TextView
         android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="644dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -140,16 +131,42 @@
         app:layout_constraintTop_toTopOf="@+id/mapButton"
         tools:text="Map" />
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/imageSlider"
+        android:layout_width="fill_parent"
+        android:layout_height="292dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="7dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/theTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:visibility="visible"></android.support.v4.view.ViewPager>
+
+    <ImageView
+        android:id="@+id/shareButton"
+        android:layout_width="66dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_share" />
+
     <ImageButton
         android:id="@+id/deleteButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="244dp"
+        android:layout_marginEnd="260dp"
         android:background="#00FFFFFF"
         android:scaleType="fitCenter"
-        app:layout_constraintEnd_toStartOf="@+id/cameraButton"
+        app:layout_constraintEnd_toStartOf="@+id/shareButton"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/delete_icon" />
+
 
 </android.support.constraint.ConstraintLayout>
