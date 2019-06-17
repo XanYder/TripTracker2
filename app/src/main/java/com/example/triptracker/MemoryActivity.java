@@ -1,5 +1,6 @@
 package com.example.triptracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -19,15 +20,96 @@ import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class MemoryActivity extends AppCompatActivity {
     private ArrayList<String> mImages, mVideos, mImagesURI, mVideosURI;
     private ArrayList<ImageView> allImages = new ArrayList<ImageView>();
     private ArrayList<VideoView> allVideos = new ArrayList<VideoView>();
 
-    private MediaPlayer mediaPlayer;
+    public void setTextinFile(ArrayList<String> texts) {
+        FileOutputStream outputStream;
 
+        try {
+            deleteFile("memories.txt");
+            outputStream = openFileOutput("memories.txt", Context.MODE_APPEND);
+
+            for (String item : texts) {
+                item = item + "\n";
+                outputStream.write(item.getBytes());
+            }
+            outputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeLine() {
+        ArrayList<String> allText = new ArrayList<>();
+        ArrayList<String> remove = new ArrayList<>();
+        try {
+            FileInputStream fis = openFileInput("memories.txt");
+            InputStreamReader inputStreamReader = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+            String lines = "";
+
+
+            TextView title = findViewById(R.id.theTitle);
+
+            boolean found = false;
+
+            while (lines != null) {
+                lines = bufferedReader.readLine();
+                allText.add(lines);
+
+            }
+            Iterator<String> iter = allText.iterator();
+            while (iter.hasNext()) {
+                String line = iter.next();
+
+                if (line != null) {
+                    if (line.substring(0, 3).equals("tit") == false) {
+                        iter.remove();
+                        Log.d("test", iter.next());
+
+                    } else {
+                        found = false;
+                    }
+
+
+                    if (line.substring(0, 3).equals("tit")) {
+                        iter.remove();
+                        Log.d("test", iter.next());
+                        found = true;
+
+                    }
+                }
+
+            }
+
+            //allText.removeAll(remove);
+
+
+            if (allText.size() > 0) {
+                setTextinFile(allText);
+            } else {
+
+                deleteFile("memories.txt");
+            }
+
+        } catch (Exception e) {
+            Log.d("error1", e.toString());
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +223,7 @@ public class MemoryActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                removeLine();
                 startActivity(new Intent(MemoryActivity.this, MemoryListActivity.class));
             }
         });
