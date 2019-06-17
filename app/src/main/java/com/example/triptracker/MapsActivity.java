@@ -140,6 +140,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     case "impa":
                         images.add(lines.substring(6));
                         break;
+                    case "imur":
+                        imageURI.add(lines.substring(5));
+                        break;
+                    case "vipa":
+                        videos.add(lines.substring(6));
+                        break;
                 }
 
             }
