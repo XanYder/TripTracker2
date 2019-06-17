@@ -2,14 +2,14 @@ package com.example.triptracker;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
+//import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.MediaPlayer;
+//import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 //import android.os.Environment;
-import android.provider.MediaStore;
+//import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 //import android.util.Log;
@@ -63,9 +63,6 @@ public class MemoryActivity extends AppCompatActivity {
 
             String lines = "";
 
-
-            TextView title = findViewById(R.id.theTitle);
-
             boolean found = false;
 
             while (lines != null) {
@@ -78,20 +75,14 @@ public class MemoryActivity extends AppCompatActivity {
                 String line = iter.next();
 
                 if (line != null) {
-                    if (line.substring(0, 3).equals("tit") == false) {
+                    if (!line.substring(0, 3).equals("tit")) {
                         iter.remove();
                         Log.d("test", iter.next());
 
-                    } else {
-                        found = false;
                     }
-
-
-                    if (line.substring(0, 3).equals("tit")) {
+                    else if (line.substring(0, 3).equals("tit")) {
                         iter.remove();
                         Log.d("test", iter.next());
-                        found = true;
-
                     }
                 }
 
@@ -192,7 +183,6 @@ public class MemoryActivity extends AppCompatActivity {
         homeButton();
         mapButton();
         createButton();
-        deleteButton();
     }
 
     private void homeButton() {
@@ -225,16 +215,4 @@ public class MemoryActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void deleteButton() {
-        ImageButton deleteButton = findViewById(R.id.deleteButton);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                removeLine();
-                startActivity(new Intent(MemoryActivity.this, MemoryListActivity.class));
-            }
-        });
-    }
-
 }
