@@ -170,13 +170,15 @@ public class MainActivity extends AppCompatActivity {
             memoryArray[x].setText(getTextFromFile(x));
         }
 
+
         if (amount > 0) {
+            final int click1 = exampleList.size() - 1;
             ImageView memoryPic1 = findViewById(R.id.imageView3);
-            if (exampleList.get(0).getmImages().size() > 0) {
-                Bitmap bmImg = BitmapFactory.decodeFile(exampleList.get(0).getmImages().get(0));
+            if (exampleList.get(click1).getmImages().size() > 0) {
+                Bitmap bmImg = BitmapFactory.decodeFile(exampleList.get(click1).getmImages().get(0));
                 memoryPic1.setImageBitmap(bmImg);
-            } else if (exampleList.get(0).getmImagesURI().size() > 0) {
-                Uri myUri = Uri.parse(exampleList.get(0).getmImagesURI().get(0));
+            } else if (exampleList.get(click1).getmImagesURI().size() > 0) {
+                Uri myUri = Uri.parse(exampleList.get(click1).getmImagesURI().get(0));
                 memoryPic1.setImageURI(myUri);
 
             } else {
@@ -184,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-            final int click1 = 0;
+
 
             //Toast.makeText(this, String.valueOf(exampleList.size()), Toast.LENGTH_SHORT).show();
             ImageView one = findViewById(R.id.imageView3);
@@ -195,24 +197,28 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("title", String.valueOf(exampleList.get(click1).getText1()));
                     intent.putExtra("description", String.valueOf(exampleList.get(click1).getDiscription()));
                     intent.putExtra("location", String.valueOf(exampleList.get(click1).getLocation()));
+                    intent.putStringArrayListExtra("images", exampleList.get(click1).getmImages());
+                    intent.putStringArrayListExtra("videos", exampleList.get(click1).getmVideos());
+                    intent.putStringArrayListExtra("imagesURI", exampleList.get(click1).getmImagesURI());
+                    intent.putStringArrayListExtra("videosURI", exampleList.get(click1).getmVideosURI());
                     startActivity(intent);
                 }
             });
             if (amount > 1) {
-
+                final int click2 = exampleList.size() - 2;
                 ImageView memoryPic2 = findViewById(R.id.imageView8);
-                if (exampleList.get(1).getmImages().size() > 0) {
-                    Bitmap bmImg = BitmapFactory.decodeFile(exampleList.get(1).getmImages().get(0));
+                if (exampleList.get(click2).getmImages().size() > 0) {
+                    Bitmap bmImg = BitmapFactory.decodeFile(exampleList.get(click2).getmImages().get(0));
                     memoryPic2.setImageBitmap(bmImg);
-                } else if (exampleList.get(1).getmImagesURI().size() > 0) {
-                    Uri myUri = Uri.parse(exampleList.get(1).getmImagesURI().get(0));
+                } else if (exampleList.get(click2).getmImagesURI().size() > 0) {
+                    Uri myUri = Uri.parse(exampleList.get(click2).getmImagesURI().get(0));
                     memoryPic2.setImageURI(myUri);
 
 
                 } else {
                     memoryPic2.setImageResource(R.drawable.circle);
                 }
-                final int click2 = 1;
+
                 ImageView two = findViewById(R.id.imageView8);
                 two.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -221,25 +227,29 @@ public class MainActivity extends AppCompatActivity {
                         intent.putExtra("title", String.valueOf(exampleList.get(click2).getText1()));
                         intent.putExtra("description", String.valueOf(exampleList.get(click2).getDiscription()));
                         intent.putExtra("location", String.valueOf(exampleList.get(click2).getLocation()));
+                        intent.putStringArrayListExtra("images", exampleList.get(click2).getmImages());
+                        intent.putStringArrayListExtra("videos", exampleList.get(click2).getmVideos());
+                        intent.putStringArrayListExtra("imagesURI", exampleList.get(click2).getmImagesURI());
+                        intent.putStringArrayListExtra("videosURI", exampleList.get(click2).getmVideosURI());
 
                         startActivity(intent);
                     }
                 });
                 if (amount > 2) {
-
+                    final int click3 = exampleList.size() - 3;
                     ImageView memoryPic3 = findViewById(R.id.imageView9);
-                    if (exampleList.get(2).getmImages().size() > 0) {
-                        Bitmap bmImg = BitmapFactory.decodeFile(exampleList.get(2).getmImages().get(0));
+                    if (exampleList.get(click3).getmImages().size() > 0) {
+                        Bitmap bmImg = BitmapFactory.decodeFile(exampleList.get(click3).getmImages().get(0));
                         memoryPic3.setImageBitmap(bmImg);
-                    } else if (exampleList.get(2).getmImagesURI().size() > 0) {
-                        Uri myUri = Uri.parse(exampleList.get(2).getmImagesURI().get(0));
+                    } else if (exampleList.get(click3).getmImagesURI().size() > 0) {
+                        Uri myUri = Uri.parse(exampleList.get(click3).getmImagesURI().get(0));
                         memoryPic3.setImageURI(myUri);
 
 
                     } else {
                         memoryPic3.setImageResource(R.drawable.circle);
                     }
-                    final int click3 = 2;
+
                     ImageView three = findViewById(R.id.imageView9);
                     three.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -248,6 +258,10 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra("title", String.valueOf(exampleList.get(click3).getText1()));
                             intent.putExtra("description", String.valueOf(exampleList.get(click3).getDiscription()));
                             intent.putExtra("location", String.valueOf(exampleList.get(click3).getLocation()));
+                            intent.putStringArrayListExtra("images", exampleList.get(click3).getmImages());
+                            intent.putStringArrayListExtra("videos", exampleList.get(click3).getmVideos());
+                            intent.putStringArrayListExtra("imagesURI", exampleList.get(click3).getmImagesURI());
+                            intent.putStringArrayListExtra("videosURI", exampleList.get(click3).getmVideosURI());
 
                             startActivity(intent);
                         }
