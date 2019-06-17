@@ -26,7 +26,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/cameraButton"
+        android:id="@+id/shareButton"
         android:layout_width="396dp"
         android:layout_height="207dp"
         android:layout_marginStart="8dp"
@@ -47,7 +47,7 @@
         android:hint="Please Enter Description"
         android:inputType="textMultiLine"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cameraButton" />
+        app:layout_constraintTop_toBottomOf="@+id/shareButton" />
 
     <Switch
         android:id="@+id/date_switch"

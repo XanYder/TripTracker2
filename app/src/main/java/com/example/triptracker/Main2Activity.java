@@ -132,7 +132,7 @@ public class Main2Activity extends AppCompatActivity {
         autoDate.setText(date);
 
 
-        Button cameraButton = findViewById(R.id.cameraButton);
+        Button cameraButton = findViewById(R.id.shareButton);
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
