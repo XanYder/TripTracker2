@@ -31,7 +31,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class MemoryActivity extends AppCompatActivity {
-    private ArrayList<String> mImages, mVideos, mImagesURI, mVideosURI;
+    private ArrayList<String> mImages, mVideos;
+    private ArrayList<Uri>mImagesURI, mVideosURI;
     private ArrayList<ImageView> allImages = new ArrayList<>();
     private ArrayList<VideoView> allVideos = new ArrayList<>();
 
@@ -129,8 +130,8 @@ public class MemoryActivity extends AppCompatActivity {
 
         mImages = getIntent().getStringArrayListExtra("images");
         mVideos = getIntent().getStringArrayListExtra("videos");
-        mImagesURI = getIntent().getStringArrayListExtra("imagesURI");
-        mVideosURI = getIntent().getStringArrayListExtra("videosURI");
+        mImagesURI = getIntent().getParcelableArrayListExtra("imagesURI");
+        mVideosURI = getIntent().getParcelableArrayListExtra("videosURI");
 
 
 
@@ -138,12 +139,15 @@ public class MemoryActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(Intent.ACTION_SEND);
+                Intent myIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
                 myIntent.setType("text/plain");
+
                 String shareBody = "At " + getIntent().getStringExtra("date") + " I went to " + getIntent().getStringExtra("location") + "." + getIntent().getStringExtra("description") + ". Shared using TripTracker.";
-                //String shareSub = getIntent().getStringExtra("title");
-                myIntent.putExtra(Intent.EXTRA_SUBJECT, shareBody);
+                String shareSub = getIntent().getStringExtra("title");
+                myIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, mImagesURI);
+                myIntent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
                 myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                myIntent.setType("*/*");
                 startActivity(Intent.createChooser(myIntent, "Share using"));
             }
         });
@@ -156,10 +160,9 @@ public class MemoryActivity extends AppCompatActivity {
             allImages.add(fake);
         }
 
-        for (String item : mImagesURI) {
+        for (Uri item : mImagesURI) {
             ImageView fake = new ImageView(this);
-            Uri myUri = Uri.parse(item);
-            fake.setImageURI(myUri);
+            fake.setImageURI(item);
             allImages.add(fake);
         }
 
@@ -169,10 +172,9 @@ public class MemoryActivity extends AppCompatActivity {
             allVideos.add(fake);
         }
 
-        for (String item : mVideosURI) {
+        for (Uri item : mVideosURI) {
             VideoView fake = new VideoView(this);
-            Uri myUri = Uri.parse(item);
-            fake.setVideoURI(myUri);
+            fake.setVideoURI(item);
 
             allVideos.add(fake);
         }
