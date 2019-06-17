@@ -149,7 +149,7 @@ public class MemoryActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent myIntent = new Intent(Intent.ACTION_SEND);
                 myIntent.setType("text/plain");
-                String shareBody = getIntent().getStringExtra("description");
+                String shareBody = "At " + getIntent().getStringExtra("date") + " I went to " + getIntent().getStringExtra("location") + "." + getIntent().getStringExtra("description") + ". Shared using TripTracker.";
                 //String shareSub = getIntent().getStringExtra("title");
                 myIntent.putExtra(Intent.EXTRA_SUBJECT, shareBody);
                 myIntent.putExtra(Intent.EXTRA_TEXT, shareBody);

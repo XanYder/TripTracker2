@@ -136,6 +136,7 @@ public class MemoryListActivity extends AppCompatActivity {
                     intent.putStringArrayListExtra("videos", exampleList.get(position).getmVideos());
                     intent.putStringArrayListExtra("imagesURI", exampleList.get(position).getmImagesURI());
                     intent.putStringArrayListExtra("videosURI", exampleList.get(position).getmVideosURI());
+                    intent.putExtra("date", exampleList.get(position).getmText2());
 
                     startActivity(intent);
                 }

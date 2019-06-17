@@ -32,6 +32,10 @@ public class ExampleItem {
         }
     }
 
+    public String getmText2() {
+        return mText2;
+    }
+
     public ArrayList<String> getmImages() {
         return mImages;
     }

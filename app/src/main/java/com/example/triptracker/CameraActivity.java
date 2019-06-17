@@ -49,6 +49,7 @@ public class CameraActivity extends AppCompatActivity {
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
 
+
     // Bitmap sampling size
     public static final int BITMAP_SAMPLE_SIZE = 8;
 

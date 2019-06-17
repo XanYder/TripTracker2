@@ -210,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putStringArrayListExtra("videos", exampleList.get(click1).getmVideos());
                     intent.putStringArrayListExtra("imagesURI", exampleList.get(click1).getmImagesURI());
                     intent.putStringArrayListExtra("videosURI", exampleList.get(click1).getmVideosURI());
+                    intent.putExtra("date", exampleList.get(click1).getmText2());
                     startActivity(intent);
                 }
             });
@@ -240,6 +241,8 @@ public class MainActivity extends AppCompatActivity {
                         intent.putStringArrayListExtra("videos", exampleList.get(click2).getmVideos());
                         intent.putStringArrayListExtra("imagesURI", exampleList.get(click2).getmImagesURI());
                         intent.putStringArrayListExtra("videosURI", exampleList.get(click2).getmVideosURI());
+                        intent.putExtra("date", exampleList.get(click2).getmText2());
+
 
                         startActivity(intent);
                     }
@@ -271,6 +274,8 @@ public class MainActivity extends AppCompatActivity {
                             intent.putStringArrayListExtra("videos", exampleList.get(click3).getmVideos());
                             intent.putStringArrayListExtra("imagesURI", exampleList.get(click3).getmImagesURI());
                             intent.putStringArrayListExtra("videosURI", exampleList.get(click3).getmVideosURI());
+                            intent.putExtra("date", exampleList.get(click3).getmText2());
+
 
                             startActivity(intent);
                         }
