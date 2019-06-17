@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 //import android.widget.Toast;
 
@@ -31,10 +32,10 @@ public class MemoryListActivity extends AppCompatActivity {
             String date = "";
             String description = "";
             String location = "";
-            ArrayList<String> images = new ArrayList<String>();
-            ArrayList<String> videos = new ArrayList<String>();
-            ArrayList<String> imageURI = new ArrayList<String>();
-            ArrayList<String> videosURI = new ArrayList<String>();
+            ArrayList<String> images = new ArrayList<>();
+            ArrayList<String> videos = new ArrayList<>();
+            ArrayList<String> imageURI = new ArrayList<>();
+            ArrayList<String> videosURI = new ArrayList<>();
 
             try {
                 lines = bufferedReader.readLine().replace("/", "//");
@@ -47,35 +48,44 @@ public class MemoryListActivity extends AppCompatActivity {
                 String identify = lines.substring(0, 4);
 
 
-                if (identify.equals("titl")) {
-                    if (itemName.equals("") == false) {
-                        exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location, images, videos, imageURI, videosURI));
-                    }
-                    itemName = "";
-                    date = "";
-                    description = "";
-                    location = "";
-                    images = new ArrayList<String>();
-                    videos = new ArrayList<String>();
-                    imageURI = new ArrayList<String>();
-                    videosURI = new ArrayList<String>();
-                    amount += 1;
+                switch (identify) {
+                    case "titl":
+                        if (!itemName.equals("")) {
+                            exampleList.add(new ExampleItem(R.drawable.pic5, itemName, date, description, location, images, videos, imageURI, videosURI));
+                        }
+                        //itemName = "";
+                        date = "";
+                        description = "";
+                        location = "";
+                        images = new ArrayList<>();
+                        videos = new ArrayList<>();
+                        imageURI = new ArrayList<>();
+                        videosURI = new ArrayList<>();
+                        amount += 1;
 
-                    itemName = lines.substring(5);
-                } else if (identify.equals("date")) {
-                    date = lines.substring(4);
-                } else if (identify.equals("desc")) {
-                    description = lines.substring(6);
-                } else if (identify.equals("loca")) {
-                    location = lines.substring(3);
-                } else if (identify.equals("vidu")) {
-                    videosURI.add(lines.substring(6));
-                } else if (identify.equals("impa")) {
-                    images.add(lines.substring(6));
-                } else if (identify.equals("imur")) {
-                    imageURI.add(lines.substring(5));
-                } else if (identify.equals("vipa")) {
-                    videos.add(lines.substring(6));
+                        itemName = lines.substring(5);
+                        break;
+                    case "date":
+                        date = lines.substring(4);
+                        break;
+                    case "desc":
+                        description = lines.substring(6);
+                        break;
+                    case "loca":
+                        location = lines.substring(3);
+                        break;
+                    case "vidu":
+                        videosURI.add(lines.substring(6));
+                        break;
+                    case "impa":
+                        images.add(lines.substring(6));
+                        break;
+                    case "imur":
+                        imageURI.add(lines.substring(5));
+                        break;
+                    case "vipa":
+                        videos.add(lines.substring(6));
+                        break;
                 }
 
                 try {
@@ -141,6 +151,15 @@ public class MemoryListActivity extends AppCompatActivity {
                 }
             });
         }
+        Button delete = findViewById(R.id.button);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteFile("memories.txt");
+                Intent intent = new Intent(MemoryListActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void homeButton() {

@@ -109,9 +109,15 @@
         android:text="Map"
         android:textColor="#686767" />
 
-
-
-
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="300dp"
+        android:layout_marginEnd="7dp"
+        android:text="Delete"
+        android:translationX="?attr/listPreferredItemPaddingRight" />
 
 
 </RelativeLayout>
